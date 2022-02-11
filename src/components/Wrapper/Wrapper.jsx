@@ -1,0 +1,38 @@
+import SpotifyWebApi from "spotify-web-api-node";
+import { useState, useEffect, useCallback } from "react";
+import axios from "axios";
+
+const clientId = '3add85dc6f494db1bdedc65977787ffa';
+const clientSecret = 'f8c922617cef4f469988f68be0990225';
+const redirectUri = 'http://localhost:3000/';
+
+const credentials = {
+  clientId,
+  clientSecret,
+  redirectUri,
+}
+const spotifyApi = new SpotifyWebApi({
+  clientId,
+})
+
+
+export const Wrapper = ({ accessToken, onIndexChange }) => {
+  const [trackUrl, setTrackUrl] = useState('');
+  window.history.pushState({}, null, '/');
+  spotifyApi.setAccessToken(accessToken);
+
+  useEffect(() => {
+    spotifyApi.getMyDevices().then((data) => console.log(data.body.devices));
+    spotifyApi.getMySavedTracks().then((data) => setTrackUrl(data.body.items[0].track.preview_url));
+  }, [])
+
+  return (
+    <div>
+      <p>{accessToken}</p>
+      <button onClick={onIndexChange(2)}>Удалить</button>
+      {trackUrl ? <audio controls>
+        <source src={trackUrl} />
+      </audio> : null}
+    </div>
+  )
+}
