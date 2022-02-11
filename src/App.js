@@ -1,26 +1,53 @@
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { getAuthors } from './store/features/authors/authorsSelectors';
-import { useState } from 'react'
-import ReactJkMusicPlayer from 'react-jinke-music-player'
-import 'react-jinke-music-player/assets/index.css'
+import SpotifyPlayer from 'react-spotify-web-playback';
 
-import Login from './components/Login';
-import Wrapper from './components/Wrapper';
+import Login from './Components/Login';
+import Wrapper from './Components/Wrapper';
+import { spotifyApi } from './store/spotifyAPI';
 
 function App() {
+
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    let accessToken = localStorage.getItem('accessToken');
+    if (accessToken) {
+      setToken(accessToken);
+    } else {
+      accessToken = new URLSearchParams(window.location.hash).get('#access_token');
+      if (accessToken) {
+        localStorage.setItem('accessToken', accessToken)
+        setToken(accessToken);
+      }
+    }
+
+    spotifyApi.setAccessToken(accessToken)
+
+  }, [])
+
   const [audioList, setAudioList] = useState([])
   const [playIndex, setPlayIndex] = useState(0);
-  const authors = useSelector(getAuthors);
-  const accessToken = new URLSearchParams(window.location.hash).get('#access_token');
   const onIndexChange = (index) => () => {
     setPlayIndex(index);
   }
 
+  const tracks = useSelector(state => state.savedTracks.savedTracks)
+  let uris = [];
+  if (tracks.length) {
+    uris = tracks.map(item => item.track.uri)
+  }
+
+
   return (
     <div>
-      {accessToken ? <Wrapper accessToken={accessToken} onIndexChange={onIndexChange} /> : <Login />}
-      <ReactJkMusicPlayer audioLists={audioList} playIndex={playIndex} />
+      {token ? <Wrapper accessToken={token} onIndexChange={onIndexChange} /> : <Login />}
+      {token &&
+        <SpotifyPlayer
+          token={token}
+          uris={uris}
+        />}
     </div>
   )
 }

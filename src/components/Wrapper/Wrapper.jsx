@@ -1,6 +1,7 @@
-import SpotifyWebApi from "spotify-web-api-node";
+import { isFocusable } from "@testing-library/user-event/dist/utils";
 import { useState, useEffect, useCallback } from "react";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { getSavedTracks } from "../../store/features/savedTracks/savedTracksThunks";
 
 const clientId = '3add85dc6f494db1bdedc65977787ffa';
 const clientSecret = 'f8c922617cef4f469988f68be0990225';
@@ -11,19 +12,17 @@ const credentials = {
   clientSecret,
   redirectUri,
 }
-const spotifyApi = new SpotifyWebApi({
-  clientId,
-})
 
 
 export const Wrapper = ({ accessToken, onIndexChange }) => {
+
+  const dispatch = useDispatch();
   const [trackUrl, setTrackUrl] = useState('');
   window.history.pushState({}, null, '/');
-  spotifyApi.setAccessToken(accessToken);
 
   useEffect(() => {
-    spotifyApi.getMyDevices().then((data) => console.log(data.body.devices));
-    spotifyApi.getMySavedTracks().then((data) => setTrackUrl(data.body.items[0].track.preview_url));
+    console.log('Дергаем санку')
+    dispatch(getSavedTracks())
   }, [])
 
   return (

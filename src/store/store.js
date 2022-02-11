@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authorsSlice from './features/authors/authorsSlice'
+import savedTracksSlice from "./features/savedTracks/savedTracksSlice";
 
 export const store = configureStore({
     reducer: {
-        authorsState: authorsSlice
+        savedTracks: savedTracksSlice
     }
 })
