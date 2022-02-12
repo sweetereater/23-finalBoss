@@ -1,0 +1,6 @@
+.submitForm {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: 15px auto;
+}
