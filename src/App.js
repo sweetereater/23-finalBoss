@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import SpotifyPlayer from 'react-spotify-web-playback';
+import { PlayerContainer } from './components/PlayerContainer';
 
-import Login from './Components/Login';
-import Wrapper from './Components/Wrapper';
+import Login from './components/Login';
+import Wrapper from './components/Wrapper';
 import { spotifyApi } from './store/spotifyAPI';
 
 function App() {
@@ -36,18 +37,15 @@ function App() {
   const tracks = useSelector(state => state.savedTracks.savedTracks)
   let uris = [];
   if (tracks.length) {
-    uris = tracks.map(item => item.track.uri)
+    uris = tracks.map(track => track.uri)
+    console.log(uris);
   }
 
 
   return (
     <div>
-      {token ? <Wrapper accessToken={token} onIndexChange={onIndexChange} /> : <Login />}
-      {token &&
-        <SpotifyPlayer
-          token={token}
-          uris={uris}
-        />}
+      {token ? <Wrapper accessToken={token} /> : <Login />}
+      {token && <PlayerContainer token={token}/>}
     </div>
   )
 }
