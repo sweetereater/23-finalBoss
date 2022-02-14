@@ -1,3 +1,7 @@
+import { useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { tokenSelector } from "../../store/features/access/accessSelectors";
+
 const clientId = '3add85dc6f494db1bdedc65977787ffa';
 const redirectUri = 'http://localhost:3000/';
 // const clientSecret = 'f8c922617cef4f469988f68be0990225';
@@ -11,6 +15,12 @@ const scopesStr = scopes.join('%20');
 const authorizeURL = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&redirect_uri=${redirectUri}&scope=${scopesStr}`;
 
 export const Login = () => {
+
+  const token = useSelector(tokenSelector);
+  if (token) {
+    return <Redirect to='/music' />
+  }
+
   return (
     <a href={authorizeURL}>Login</a>
   )
