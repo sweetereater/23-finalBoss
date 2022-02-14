@@ -8,6 +8,12 @@ import Login from './components/Login';
 import { ExtractToken } from './components/ExtractToken/ExtractToken';
 import { tokenSelector } from './store/features/access/accessSelectors';
 import { getUserInfo } from './store/features/user/userThunks';
+import Header from "./components/HeaderComponent/HeaderComponent";
+// import SubmitFormComponent from "./components/commons/SubmitFormComponent/SubmitFormComponent";
+// import PaginationComponent from "./components/commons/PaginationComponent/PaginationComponent";
+import './App.css'
+// import PlayerWidgetComponent from "./components/PlayerWidgetComponent/PlayerWidgetComponent";
+import SongItemComponent from "./components/SongItemComponent/SongItemComponent";
 
 function App() {
 
@@ -25,19 +31,22 @@ function App() {
   }, [])
 
   return (
-    <div>
-      <BrowserRouter>
-        <Route path='/login'>
-          <Login />
-        </Route>
-        <Route exact path="/">
-          <ExtractToken />
-        </Route>
-        <Route path='/music'>
-          <PlayerContainer />
-        </Route>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <div className='App'>
+        <Header />
+        <div className='MainWrapper'>
+          <Route path='/login'>
+            <Login />
+          </Route>
+          <Route exact path="/">
+            <ExtractToken />
+          </Route>
+          <Route path='/music'>
+            <PlayerContainer />
+          </Route>
+        </div>
+      </div>
+    </BrowserRouter>
   )
 }
 

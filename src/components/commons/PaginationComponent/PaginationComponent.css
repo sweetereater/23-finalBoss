@@ -1,0 +1,8 @@
+.PaginationComponent nav {
+    display: flex;
+    justify-content: center;
+}
+.PaginationComponent {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
