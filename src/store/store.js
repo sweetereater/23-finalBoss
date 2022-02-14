@@ -1,8 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authorsSlice from './features/authors/authorsSlice'
+import savedTracksSlice from "./features/savedTracks/savedTracksSlice";
+import playerActiveTracksSlice from "./features/playerActiveTracks/playerActiveTracksSlice";
+import accessSlice from './features/access/accessSlice';
+import userSlice from "./features/user/userSlice";
 
 export const store = configureStore({
     reducer: {
-        authorsState: authorsSlice
+        access: accessSlice,
+        userInfo: userSlice,
+        savedTracks: savedTracksSlice,
+        playerActiveTracks: playerActiveTracksSlice,
     }
 })
