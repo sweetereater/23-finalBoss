@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import { tokenSelector } from "../../store/features/access/accessSelectors";
 
 const clientId = '3add85dc6f494db1bdedc65977787ffa';
-const redirectUri = 'http://localhost:3000/';
+const redirectUri = 'http://localhost:3000/accesstoken';
 // const clientSecret = 'f8c922617cef4f469988f68be0990225';
 // const state = 'state';
 const scopes = ['streaming', 'ugc-image-upload', 'user-read-playback-state', 'user-modify-playback-state', 'user-read-currently-playing',

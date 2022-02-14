@@ -10,6 +10,7 @@ import { tokenSelector } from './store/features/access/accessSelectors';
 import { getUserInfo } from './store/features/user/userThunks';
 import Header from "./components/HeaderComponent/HeaderComponent";
 import './App.css'
+import { Playlist } from './components/Playlists/Playlists';
 
 function App() {
 
@@ -35,11 +36,14 @@ function App() {
             <Login />
           </Route>
           {/* Желательно, поменять url для того, чтобы получать access token с / на что-нибудь другое */}
-          <Route exact path="/">
+          <Route exact path="/accesstoken">
             <ExtractToken />
           </Route>
           <Route path='/music'>
             <PlayerContainer />
+          </Route>
+          <Route path='/playlists'>
+            <Playlist />
           </Route>
         </div>
       </div>
