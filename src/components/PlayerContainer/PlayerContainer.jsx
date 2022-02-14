@@ -1,34 +1,116 @@
 import SpotifyPlayer from 'react-spotify-web-playback';
 import { useEffect } from 'react';
-import { getSavedTracks } from '../../store/features/savedTracks/savedTracksThunks';
 import { useSelector, useDispatch } from 'react-redux';
-import { tokenSelector } from '../../store/features/access/accessSelectors';
 import { Redirect } from 'react-router-dom';
+
+import { getSavedTracks } from '../../store/features/savedTracks/savedTracksThunks';
+import { tokenSelector } from '../../store/features/access/accessSelectors';
+import { getSongDuration } from '../../utils/timeFunctions';
+import SongItemComponent from '../SongItemComponent/SongItemComponent'
+import { activeTracksSelector, currentTrackSelector, isPlayingSelector } from '../../store/features/playerActiveTracks/activeTracksSelectors';
+import { setCurrentTrack, setIsPlaying } from '../../store/features/playerActiveTracks/playerActiveTracksSlice';
 
 const PlayerContainer = () => {
 
+  /* 
+    --- ISSUES --- : 
+        1) При остановке текущего трека, а затем включения другого, почему-то играет предыдущий трек
+          Если мы просто с играющего трека переключим на другой - все ок.
+        2) При нажатии кнопок Previous, Next в начале трека есть небольшой повтор
+  */
 
   const dispatch = useDispatch();
-  const token = useSelector(tokenSelector)
+  const token = useSelector(tokenSelector);
+  const currentTrack = useSelector(currentTrackSelector);
+  const isPlaying = useSelector(isPlayingSelector);
+
+  const tracks = useSelector(activeTracksSelector);
 
   useEffect(() => {
-    console.log('Получаем сохраненные треки пользователя')
     dispatch(getSavedTracks())
   }, [token])
 
+  const handlePlayerStateChange = (state) => {
+    console.log(state);
 
-  const tracks = useSelector(state => state.savedTracks.savedTracks);
+    /* 
+      state.type: 
+        "status_update" | 
+        "track_update" | -> previous / next button
+        "player_update" | -> start / stop button
+        "progress_update" -> track progress bar
+    */
+
+    switch (state.type) {
+      case "player_update":
+        dispatch(setIsPlaying(state.isPlaying));
+        break;
+      case "track_update":
+        const playerCurrentTrack = state.track;
+        const findTrackIndex = tracks.findIndex(track => track.id === playerCurrentTrack.id)
+        dispatch(setCurrentTrack(findTrackIndex));
+        break;
+      default:
+    }
+  }
+
+  /* 
+    Из объекта трека берем:
+      name - имя трека + исполнитель
+      duration_ms - длительность в миллисекундах
+      artists - массив с исполнителями (href, id, name)
+      album.images[] 0 -> 600x600, 1-> 300x300, 2-> 64x64
+
+  */
+  const tracksItems = tracks.map((track, index) => {
+    return {
+      id: track.id,
+      name: track.name,
+      duration: getSongDuration(track.duration_ms),
+      order: index,
+      img: track.album.images[2].url,
+    }
+  })
+
   console.log('PlayerContainer tracks', tracks);
   const uris = tracks.map((track) => track.uri);
 
   if (!token) return <Redirect to='/login' />
 
+  console.log('!!! PLAYER SETTINGS !!!')
+  console.log('Is playing? ', isPlaying)
+  console.log('current track: ', currentTrack);
+
+  /* 
+    Для того, чтобы стилизовать слайдер, можно обратиться к ._SliderRSWP 
+    Например, чтобы установить cursor: pointer
+  */
+
   return (
-    uris.length > 0 && <SpotifyPlayer
-      token={token}
-      uris={uris}
-      initialVolume={0.4}
-    />
+    <div>
+      {
+        tracksItems.map(track => {
+          return <SongItemComponent key={track.id} {...track} />
+        })
+      }
+      {uris.length > 0 && <SpotifyPlayer
+        token={token}
+        uris={uris}
+        play={isPlaying}
+        offset={currentTrack}
+        initialVolume={0.4}
+        callback={state => handlePlayerStateChange(state)}
+        styles={{
+          height: '72px',
+          sliderHeight: '15px',
+          sliderHandleColor: 'pointer',
+          color: '#0083f5',
+          bgColor: '#ededed',
+          sliderColor: '#329dfa',
+          sliderTrackColor: '#b0b5b2',
+        }}
+      />}
+    </div>
   )
 }
 

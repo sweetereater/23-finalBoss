@@ -9,11 +9,7 @@ import { ExtractToken } from './components/ExtractToken/ExtractToken';
 import { tokenSelector } from './store/features/access/accessSelectors';
 import { getUserInfo } from './store/features/user/userThunks';
 import Header from "./components/HeaderComponent/HeaderComponent";
-// import SubmitFormComponent from "./components/commons/SubmitFormComponent/SubmitFormComponent";
-// import PaginationComponent from "./components/commons/PaginationComponent/PaginationComponent";
 import './App.css'
-// import PlayerWidgetComponent from "./components/PlayerWidgetComponent/PlayerWidgetComponent";
-import SongItemComponent from "./components/SongItemComponent/SongItemComponent";
 
 function App() {
 
@@ -38,6 +34,7 @@ function App() {
           <Route path='/login'>
             <Login />
           </Route>
+          {/* Желательно, поменять url для того, чтобы получать access token с / на что-нибудь другое */}
           <Route exact path="/">
             <ExtractToken />
           </Route>
