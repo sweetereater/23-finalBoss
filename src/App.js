@@ -35,7 +35,7 @@ function App() {
             <Login />
           </Route>
           {/* Желательно, поменять url для того, чтобы получать access token с / на что-нибудь другое */}
-          <Route exact path="/">
+          <Route exact path="/accesstoken">
             <ExtractToken />
           </Route>
           <Route path='/music'>
