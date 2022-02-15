@@ -18,7 +18,7 @@ const MySavedTracks = () => {
 
   return (
     <div>
-      <Tracks tracks={tracks} />
+      <Tracks tracks={tracks} source="/music" />
     </div>)
 }
 

@@ -42,7 +42,7 @@ function App() {
               <ExtractToken />
             </Route>
             <Route path='/music'>
-              <PlayerContainer />
+              <MySavedTracks />
             </Route>
             <Route exact path='/playlists'>
               <PlaylistsPage />
@@ -51,6 +51,7 @@ function App() {
               <CurrentPlaylist />
             </Route>
           </Switch>
+          <PlayerContainer />
         </div>
       </div>
     </BrowserRouter>

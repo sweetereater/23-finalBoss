@@ -6,5 +6,4 @@ import { setPlayerActiveTracks } from "../playerActiveTracks/playerActiveTracksS
 export const getSavedTracks = createAsyncThunk('savedTracks/getSavedTracks', async (_, { dispatch }) => {
     const response = await spotifyApi.getMySavedTracks();
     dispatch(setSavedTracks(response.body.items.map((item) => item.track)));
-    dispatch(setPlayerActiveTracks(response.body.items.map((item) => item.track)));
 })

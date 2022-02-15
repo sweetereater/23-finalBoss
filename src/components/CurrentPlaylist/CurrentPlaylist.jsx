@@ -9,6 +9,7 @@ import { loaderSelector } from '../../store/features/loader/loaderSelectors';
 import { playlistsSelector } from '../../store/features/playlists/playlistsSelectors';
 import { getSongDuration } from '../../utils/timeFunctions';
 import SongItemComponent from '../SongItemComponent/SongItemComponent';
+import Tracks from '../Tracks/Tracks';
 
 export const CurrentPlaylist = () => {
 
@@ -20,15 +21,6 @@ export const CurrentPlaylist = () => {
     const currentPL = useSelector(playlistsSelector).find(pl => pl.id === playlistID)
 
     const currentPLTracks = useSelector(currentPlaylistTracksSelector);
-    const tracksItems = currentPLTracks.map((track, index) => {
-        return {
-            id: track.id,
-            name: track.name,
-            duration: getSongDuration(track.duration_ms),
-            order: index,
-            img: track.album.images[2].url,
-        }
-    })
 
     const dispatch = useDispatch()
 
@@ -50,9 +42,7 @@ export const CurrentPlaylist = () => {
                 }
             </Box>
             <Box>
-                {tracksItems.map(track => {
-                    return <SongItemComponent key={track.id} {...track} />
-                })}
+                <Tracks tracks={currentPLTracks} source='' />
             </Box>
 
         </Box>

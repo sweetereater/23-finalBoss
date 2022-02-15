@@ -1,14 +1,12 @@
 import SpotifyPlayer from 'react-spotify-web-playback';
-import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import { getSavedTracks } from '../../store/features/savedTracks/savedTracksThunks';
 import { tokenSelector } from '../../store/features/access/accessSelectors';
-import { getSongDuration } from '../../utils/timeFunctions';
-import SongItemComponent from '../SongItemComponent/SongItemComponent'
-import { activeTracksSelector, currentTrackSelector, isPlayingSelector } from '../../store/features/playerActiveTracks/activeTracksSelectors';
-import { setCurrentTrack, setIsPlaying } from '../../store/features/playerActiveTracks/playerActiveTracksSlice';
+import { activeTracksSelector, currentMusicSourceSelector, currentTrackSelector, isPlayingSelector } from '../../store/features/playerActiveTracks/activeTracksSelectors';
+import { setCurrentTrack, setIsPlaying, setPlayerActiveTracks } from '../../store/features/playerActiveTracks/playerActiveTracksSlice';
+import { savedTracksSelector } from '../../store/features/savedTracks/savedTracksSelectors';
+import { currentPlaylistTracksSelector } from '../../store/features/currentPlaylist/currentPlaylistSelectors';
 
 const PlayerContainer = () => {
 
@@ -17,11 +15,22 @@ const PlayerContainer = () => {
   const currentTrack = useSelector(currentTrackSelector);
   const isPlaying = useSelector(isPlayingSelector);
 
+  const musicSrc = useSelector(currentMusicSourceSelector);
+  const savedMusic = useSelector(savedTracksSelector);
+  const playlistMusic = useSelector(currentPlaylistTracksSelector)
+
+  switch (musicSrc) {
+    case '/music':
+      dispatch(setPlayerActiveTracks(savedMusic));
+      break;
+    default:
+      dispatch(setPlayerActiveTracks(playlistMusic));
+      break;
+  }
+
   const tracks = useSelector(activeTracksSelector);
 
   const handlePlayerStateChange = (state) => {
-    console.log(state);
-
     /* 
       state.type: 
         "status_update" | 
@@ -29,7 +38,6 @@ const PlayerContainer = () => {
         "player_update" | -> start / stop button
         "progress_update" -> track progress bar
     */
-
     switch (state.type) {
       case "player_update":
         dispatch(setIsPlaying(state.isPlaying));
@@ -60,7 +68,6 @@ const PlayerContainer = () => {
   console.log('!!! PLAYER SETTINGS !!!')
   console.log('Is playing? ', isPlaying)
   console.log('current track: ', currentTrack);
-
   /* 
     Для того, чтобы стилизовать слайдер, можно обратиться к ._SliderRSWP 
     Например, чтобы установить cursor: pointer
