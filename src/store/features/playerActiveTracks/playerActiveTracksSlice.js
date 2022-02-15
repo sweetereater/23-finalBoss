@@ -22,7 +22,7 @@ export const playerActiveTracksSlice = createSlice({
         },
         setMusicSource: (state, action) => {
             state.musicSource = action.payload;
-        }
+        },
     },
 })
 

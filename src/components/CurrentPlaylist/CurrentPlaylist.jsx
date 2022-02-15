@@ -42,7 +42,7 @@ export const CurrentPlaylist = () => {
                 }
             </Box>
             <Box>
-                <Tracks tracks={currentPLTracks} source='' />
+                <Tracks tracks={currentPLTracks} source={playlistID} />
             </Box>
 
         </Box>
