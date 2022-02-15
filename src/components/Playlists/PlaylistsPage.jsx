@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import { tokenSelector } from "../../store/features/access/accessSelectors";
 import { playlistsSelector } from "../../store/features/playlists/playlistsSelectors";
 import { getPlaylists } from "../../store/features/playlists/playlistsThunks";
-import { PlayList } from "./PlaylistComponent";
+import { PlayListCard } from "./PlaylistCard";
 
 export const PlaylistsPage = () => {
     const dispatch = useDispatch();
@@ -23,7 +23,7 @@ export const PlaylistsPage = () => {
     return (
         <div>
             <h1>Playlists: </h1>
-            {playlists.map(pl => <PlayList key={pl.id} {...pl} />)}
+            {playlists.map(pl => <PlayListCard key={pl.id} {...pl} />)}
         </div>
     )
 }
