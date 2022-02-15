@@ -12,13 +12,6 @@ import { setCurrentTrack, setIsPlaying } from '../../store/features/playerActive
 
 const PlayerContainer = () => {
 
-  /* 
-    --- ISSUES --- : 
-        1) При остановке текущего трека, а затем включения другого, почему-то играет предыдущий трек
-          Если мы просто с играющего трека переключим на другой - все ок.
-        2) При нажатии кнопок Previous, Next в начале трека есть небольшой повтор
-  */
-
   const dispatch = useDispatch();
   const token = useSelector(tokenSelector);
   const currentTrack = useSelector(currentTrackSelector);

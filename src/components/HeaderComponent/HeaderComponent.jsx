@@ -4,10 +4,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import './HeaderComponent.css'
-<<<<<<< HEAD
-=======
 import { Link } from 'react-router-dom'
->>>>>>> work_at_access
 
 const ResponsiveAppBar = () => {
     return (
@@ -22,10 +19,8 @@ const ResponsiveAppBar = () => {
                     >
                         Best player ever
                     </Typography>
-<<<<<<< HEAD
-=======
                     <Link to='/playlists'>Playlists</Link>
->>>>>>> work_at_access
+                    <Link to='/music'>Listen some goood music</Link>
                 </Toolbar>
             </Container>
         </AppBar>

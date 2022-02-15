@@ -5,8 +5,9 @@ import { Redirect } from 'react-router-dom';
 import { tokenSelector } from "../../store/features/access/accessSelectors";
 import { playlistsSelector } from "../../store/features/playlists/playlistsSelectors";
 import { getPlaylists } from "../../store/features/playlists/playlistsThunks";
+import { PlayList } from "./PlaylistComponent";
 
-export const Playlist = () => {
+export const PlaylistsPage = () => {
     const dispatch = useDispatch();
     const playlists = useSelector(playlistsSelector)
     console.log(playlists);
@@ -21,7 +22,8 @@ export const Playlist = () => {
 
     return (
         <div>
-            playlists page
+            <h1>Playlists: </h1>
+            {playlists.map(pl => <PlayList key={pl.id} {...pl} />)}
         </div>
     )
 }
