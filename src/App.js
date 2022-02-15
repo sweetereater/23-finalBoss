@@ -10,6 +10,10 @@ import { tokenSelector } from './store/features/access/accessSelectors';
 import { getUserInfo } from './store/features/user/userThunks';
 import Header from "./components/HeaderComponent/HeaderComponent";
 import './App.css'
+<<<<<<< HEAD
+=======
+import { Playlist } from './components/Playlists/Playlists';
+>>>>>>> work_at_access
 
 function App() {
 
@@ -41,6 +45,12 @@ function App() {
           <Route path='/music'>
             <PlayerContainer />
           </Route>
+<<<<<<< HEAD
+=======
+          <Route path='/playlists'>
+            <Playlist />
+          </Route>
+>>>>>>> work_at_access
         </div>
       </div>
     </BrowserRouter>
