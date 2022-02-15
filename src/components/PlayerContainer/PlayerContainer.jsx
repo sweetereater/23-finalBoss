@@ -19,10 +19,6 @@ const PlayerContainer = () => {
 
   const tracks = useSelector(activeTracksSelector);
 
-  useEffect(() => {
-    dispatch(getSavedTracks())
-  }, [token])
-
   const handlePlayerStateChange = (state) => {
     console.log(state);
 
@@ -55,15 +51,6 @@ const PlayerContainer = () => {
       album.images[] 0 -> 600x600, 1-> 300x300, 2-> 64x64
 
   */
-  const tracksItems = tracks.map((track, index) => {
-    return {
-      id: track.id,
-      name: track.name,
-      duration: getSongDuration(track.duration_ms),
-      order: index,
-      img: track.album.images[2].url,
-    }
-  })
 
   console.log('PlayerContainer tracks', tracks);
   const uris = tracks.map((track) => track.uri);
@@ -81,11 +68,6 @@ const PlayerContainer = () => {
 
   return (
     <div>
-      {
-        tracksItems.map(track => {
-          return <SongItemComponent key={track.id} {...track} />
-        })
-      }
       {uris.length > 0 && <SpotifyPlayer
         token={token}
         uris={uris}
