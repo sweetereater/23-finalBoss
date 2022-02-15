@@ -8,14 +8,16 @@ import Typography from '@mui/material/Typography';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentTrack, setIsPlaying } from '../../store/features/playerActiveTracks/playerActiveTracksSlice';
-import { currentTrackSelector, isPlayingSelector } from '../../store/features/playerActiveTracks/activeTracksSelectors';
+import { setCurrentTrack, setIsPlaying, setMusicSource } from '../../store/features/playerActiveTracks/playerActiveTracksSlice';
+import { currentMusicSourceSelector, currentTrackSelector, isPlayingSelector } from '../../store/features/playerActiveTracks/activeTracksSelectors';
 
 function SongItemComponent(props) {
 
-    const { name, duration, img, order } = props;
+    const { name, duration, img, order, source } = props;
     const currentTrack = useSelector(currentTrackSelector);
     const isPlaying = useSelector(isPlayingSelector);
+    const musicSrc = useSelector(currentMusicSourceSelector)
+    console.log(musicSrc)
 
     const dispatch = useDispatch();
 
@@ -24,6 +26,10 @@ function SongItemComponent(props) {
             1) Нажимаем на песню, которая не воспроизводится в данный момент - поменять offset
             2) Нажимаем на песню, которая воспроизводится в данный момент - меняем isPlaying на !isPlaying
         */
+        if (source !== musicSrc) {
+            dispatch(setMusicSource(source))
+        }
+
         if (currentTrack === order) {
             dispatch(setIsPlaying(!isPlaying))
         } else {
@@ -47,14 +53,14 @@ function SongItemComponent(props) {
             alignItems: 'center',
             justifyContent: 'space-between',
             margin: '10px 0',
-            bgcolor: (currentTrack === order) ? '#a7e0fc' : "#fff"
+            bgcolor: (source === musicSrc && currentTrack === order) ? '#a7e0fc' : "#fff"
         }}>
             <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
                     <img src={img} alt="" />
                     <IconButton aria-label="play/pause" onClick={handleClick} >
                         {
-                            currentTrack === order && isPlaying ?
+                            (source === musicSrc && currentTrack === order) && isPlaying ?
                                 <PauseIcon sx={{ height: 38, width: 38, fill: '#0083f5' }} /> :
                                 <PlayArrowIcon sx={{ height: 38, width: 38, fill: '#0083f5' }} />
                         }

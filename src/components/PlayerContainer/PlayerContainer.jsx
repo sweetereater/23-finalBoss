@@ -1,38 +1,37 @@
 import SpotifyPlayer from 'react-spotify-web-playback';
-import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import { getSavedTracks } from '../../store/features/savedTracks/savedTracksThunks';
 import { tokenSelector } from '../../store/features/access/accessSelectors';
-import { getSongDuration } from '../../utils/timeFunctions';
-import SongItemComponent from '../SongItemComponent/SongItemComponent'
-import { activeTracksSelector, currentTrackSelector, isPlayingSelector } from '../../store/features/playerActiveTracks/activeTracksSelectors';
-import { setCurrentTrack, setIsPlaying } from '../../store/features/playerActiveTracks/playerActiveTracksSlice';
+import { activeTracksSelector, currentMusicSourceSelector, currentTrackSelector, isPlayingSelector } from '../../store/features/playerActiveTracks/activeTracksSelectors';
+import { setCurrentTrack, setIsPlaying, setPlayerActiveTracks } from '../../store/features/playerActiveTracks/playerActiveTracksSlice';
+import { savedTracksSelector } from '../../store/features/savedTracks/savedTracksSelectors';
+import { currentPlaylistTracksSelector } from '../../store/features/currentPlaylist/currentPlaylistSelectors';
 
 const PlayerContainer = () => {
-
-  /* 
-    --- ISSUES --- : 
-        1) При остановке текущего трека, а затем включения другого, почему-то играет предыдущий трек
-          Если мы просто с играющего трека переключим на другой - все ок.
-        2) При нажатии кнопок Previous, Next в начале трека есть небольшой повтор
-  */
 
   const dispatch = useDispatch();
   const token = useSelector(tokenSelector);
   const currentTrack = useSelector(currentTrackSelector);
   const isPlaying = useSelector(isPlayingSelector);
 
+  const musicSrc = useSelector(currentMusicSourceSelector);
+  const savedMusic = useSelector(savedTracksSelector);
+  const playlistMusic = useSelector(currentPlaylistTracksSelector)
+
+  /* fix this */
+  switch (musicSrc) {
+    case '/music':
+      dispatch(setPlayerActiveTracks(savedMusic));
+      break;
+    default:
+      dispatch(setPlayerActiveTracks(playlistMusic));
+      break;
+  }
+
   const tracks = useSelector(activeTracksSelector);
 
-  useEffect(() => {
-    dispatch(getSavedTracks())
-  }, [token])
-
   const handlePlayerStateChange = (state) => {
-    console.log(state);
-
     /* 
       state.type: 
         "status_update" | 
@@ -40,7 +39,6 @@ const PlayerContainer = () => {
         "player_update" | -> start / stop button
         "progress_update" -> track progress bar
     */
-
     switch (state.type) {
       case "player_update":
         dispatch(setIsPlaying(state.isPlaying));
@@ -62,15 +60,6 @@ const PlayerContainer = () => {
       album.images[] 0 -> 600x600, 1-> 300x300, 2-> 64x64
 
   */
-  const tracksItems = tracks.map((track, index) => {
-    return {
-      id: track.id,
-      name: track.name,
-      duration: getSongDuration(track.duration_ms),
-      order: index,
-      img: track.album.images[2].url,
-    }
-  })
 
   console.log('PlayerContainer tracks', tracks);
   const uris = tracks.map((track) => track.uri);
@@ -78,8 +67,7 @@ const PlayerContainer = () => {
   if (!token) return <Redirect to='/login' />
 
   console.log('!!! PLAYER SETTINGS !!!')
-  console.log('Is playing? ', isPlaying)
-  console.log('current track: ', currentTrack);
+  console.log(`Is playing -> ${isPlaying}, currentTrack -> ${currentTrack}`)
 
   /* 
     Для того, чтобы стилизовать слайдер, можно обратиться к ._SliderRSWP 
@@ -88,11 +76,6 @@ const PlayerContainer = () => {
 
   return (
     <div>
-      {
-        tracksItems.map(track => {
-          return <SongItemComponent key={track.id} {...track} />
-        })
-      }
       {uris.length > 0 && <SpotifyPlayer
         token={token}
         uris={uris}
