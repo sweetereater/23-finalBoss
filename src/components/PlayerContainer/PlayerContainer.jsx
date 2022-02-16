@@ -14,8 +14,7 @@ const PlayerContainer = () => {
   const token = useSelector(tokenSelector);
   const currentTrack = useSelector(currentTrackSelector);
   const isPlaying = useSelector(isPlayingSelector);
-
-
+  
   const tracks = useSelector(activeTracksSelector);
 
   const handlePlayerStateChange = (state) => {
@@ -56,8 +55,8 @@ const PlayerContainer = () => {
   if (!token) return <Redirect to='/login' />
 
   console.log('!!! PLAYER SETTINGS !!!')
-  console.log('Is playing? ', isPlaying)
-  console.log('current track: ', currentTrack);
+  console.log(`Is playing -> ${isPlaying}, currentTrack -> ${currentTrack}`)
+  
   /* 
     Для того, чтобы стилизовать слайдер, можно обратиться к ._SliderRSWP 
     Например, чтобы установить cursor: pointer

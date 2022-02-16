@@ -5,10 +5,13 @@ import { setCurrentTracks } from '../../store/features/currentTracks/currentTrac
 import { useEffect } from 'react';
 
 const Tracks = ({ tracks, source }) => {
+  
   const dispatch = useDispatch();
+  
   useEffect(() => {
     dispatch(setCurrentTracks(tracks));
   }, [tracks])
+  
   const tracksItems = tracks.map((track, index) => {
     return {
       id: track.id,

@@ -10,6 +10,7 @@ import PauseIcon from '@mui/icons-material/Pause';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentTrack, setIsPlaying, setMusicSource } from '../../store/features/playerActiveTracks/playerActiveTracksSlice';
 import { currentMusicSourceSelector, currentTrackSelector, isPlayingSelector } from '../../store/features/playerActiveTracks/activeTracksSelectors';
+
 import { setPlayerActiveTracks } from '../../store/features/playerActiveTracks/playerActiveTracksSlice';
 import { currentTracksSelector } from '../../store/features/currentTracks/currentTracksSelector';
 import { useCallback } from 'react';
@@ -20,6 +21,7 @@ function SongItemComponent(props) {
     const currentTrack = useSelector(currentTrackSelector);
     const isPlaying = useSelector(isPlayingSelector);
     const musicSrc = useSelector(currentMusicSourceSelector)
+    
     const currentTracks = useSelector(currentTracksSelector)
     const dispatch = useDispatch();
 
@@ -38,6 +40,7 @@ function SongItemComponent(props) {
         if (currentTrack === order && (source === musicSrc || musicSrc === null)) {
             dispatch(setIsPlaying(!isPlaying))
         } 
+      
         if (currentTrack !== order && source === musicSrc) {
             dispatch(setCurrentTrack(order))
             dispatch(setIsPlaying(true))

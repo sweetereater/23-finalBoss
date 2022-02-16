@@ -7,8 +7,6 @@ import { currentPlaylistTracksSelector } from '../../store/features/currentPlayl
 import { getCurrentPlaylistTracks } from '../../store/features/currentPlaylist/currentPlaylistThunks';
 import { loaderSelector } from '../../store/features/loader/loaderSelectors';
 import { playlistsSelector } from '../../store/features/playlists/playlistsSelectors';
-import { getSongDuration } from '../../utils/timeFunctions';
-import SongItemComponent from '../SongItemComponent/SongItemComponent';
 import Tracks from '../Tracks/Tracks';
 
 export const CurrentPlaylist = () => {

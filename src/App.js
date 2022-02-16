@@ -44,11 +44,11 @@ function App() {
             <Route path='/music'>
               <MySavedTracks />
             </Route>
-            <Route exact path='/playlists'>
-              <PlaylistsPage />
-            </Route>
-            <Route exact path='/playlists/:playlistId'>
+            <Route path='/playlists/:playlistId'>
               <CurrentPlaylist />
+            </Route>
+            <Route path='/playlists'>
+              <PlaylistsPage />
             </Route>
           </Switch>
           <PlayerContainer />
