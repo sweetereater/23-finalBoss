@@ -4,10 +4,9 @@ import accessSlice from './features/access/accessSlice';
 import userSlice from "./features/user/userSlice";
 import savedTracksSlice from "./features/savedTracks/savedTracksSlice";
 import playerActiveTracksSlice from "./features/playerActiveTracks/playerActiveTracksSlice";
-
 import playlistsSlice from "./features/playlists/playlistsSlice";
 import currentPlaylistSlice from "./features/currentPlaylist/currentPlaylistSlice";
-
+import currentTracksSlice from "./features/currentTracks/currentTracksSlice";
 
 export const store = configureStore({
     reducer: {
@@ -18,5 +17,6 @@ export const store = configureStore({
         playerActiveTracks: playerActiveTracksSlice,
         playlists: playlistsSlice,
         currentPlaylist: currentPlaylistSlice,
+        currentTracks: currentTracksSlice,
     }
 })

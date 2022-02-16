@@ -20,7 +20,6 @@ export const PlaylistsPage = () => {
 
     if (!token) return <Redirect to='/login' />
 
-    /*  TODO -> красиво отрисовать список плейлистов */
     return (
         <div>
             <h1>Playlists: </h1>

@@ -14,21 +14,7 @@ const PlayerContainer = () => {
   const token = useSelector(tokenSelector);
   const currentTrack = useSelector(currentTrackSelector);
   const isPlaying = useSelector(isPlayingSelector);
-
-  const musicSrc = useSelector(currentMusicSourceSelector);
-  const savedMusic = useSelector(savedTracksSelector);
-  const playlistMusic = useSelector(currentPlaylistTracksSelector)
-
-  /* fix this */
-  switch (musicSrc) {
-    case '/music':
-      dispatch(setPlayerActiveTracks(savedMusic));
-      break;
-    default:
-      dispatch(setPlayerActiveTracks(playlistMusic));
-      break;
-  }
-
+  
   const tracks = useSelector(activeTracksSelector);
 
   const handlePlayerStateChange = (state) => {
@@ -45,8 +31,10 @@ const PlayerContainer = () => {
         break;
       case "track_update":
         const playerCurrentTrack = state.track;
-        const findTrackIndex = tracks.findIndex(track => track.id === playerCurrentTrack.id)
-        dispatch(setCurrentTrack(findTrackIndex));
+        if (tracks[currentTrack].id !== playerCurrentTrack.id) {
+          const findTrackIndex = tracks.findIndex(track => track.id === playerCurrentTrack.id)
+          dispatch(setCurrentTrack(findTrackIndex));
+        }
         break;
       default:
     }
@@ -68,7 +56,7 @@ const PlayerContainer = () => {
 
   console.log('!!! PLAYER SETTINGS !!!')
   console.log(`Is playing -> ${isPlaying}, currentTrack -> ${currentTrack}`)
-
+  
   /* 
     Для того, чтобы стилизовать слайдер, можно обратиться к ._SliderRSWP 
     Например, чтобы установить cursor: pointer
