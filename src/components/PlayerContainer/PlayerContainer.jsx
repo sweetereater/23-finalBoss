@@ -3,10 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import { tokenSelector } from '../../store/features/access/accessSelectors';
-import { activeTracksSelector, currentMusicSourceSelector, currentTrackSelector, isPlayingSelector } from '../../store/features/playerActiveTracks/activeTracksSelectors';
-import { setCurrentTrack, setIsPlaying, setPlayerActiveTracks } from '../../store/features/playerActiveTracks/playerActiveTracksSlice';
-import { savedTracksSelector } from '../../store/features/savedTracks/savedTracksSelectors';
-import { currentPlaylistTracksSelector } from '../../store/features/currentPlaylist/currentPlaylistSelectors';
+import { activeTracksSelector, currentTrackSelector, isPlayingSelector } from '../../store/features/playerActiveTracks/activeTracksSelectors';
+import { setCurrentTrack, setIsPlaying } from '../../store/features/playerActiveTracks/playerActiveTracksSlice';
 
 const PlayerContainer = () => {
 
@@ -14,7 +12,7 @@ const PlayerContainer = () => {
   const token = useSelector(tokenSelector);
   const currentTrack = useSelector(currentTrackSelector);
   const isPlaying = useSelector(isPlayingSelector);
-  
+
   const tracks = useSelector(activeTracksSelector);
 
   const handlePlayerStateChange = (state) => {
@@ -56,7 +54,7 @@ const PlayerContainer = () => {
 
   console.log('!!! PLAYER SETTINGS !!!')
   console.log(`Is playing -> ${isPlaying}, currentTrack -> ${currentTrack}`)
-  
+
   /* 
     Для того, чтобы стилизовать слайдер, можно обратиться к ._SliderRSWP 
     Например, чтобы установить cursor: pointer
