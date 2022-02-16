@@ -11,32 +11,41 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentTrack, setIsPlaying, setMusicSource } from '../../store/features/playerActiveTracks/playerActiveTracksSlice';
 import { currentMusicSourceSelector, currentTrackSelector, isPlayingSelector } from '../../store/features/playerActiveTracks/activeTracksSelectors';
 
+import { setPlayerActiveTracks } from '../../store/features/playerActiveTracks/playerActiveTracksSlice';
+import { currentTracksSelector } from '../../store/features/currentTracks/currentTracksSelector';
+import { useCallback } from 'react';
+
 function SongItemComponent(props) {
 
     const { name, duration, img, order, source } = props;
     const currentTrack = useSelector(currentTrackSelector);
     const isPlaying = useSelector(isPlayingSelector);
     const musicSrc = useSelector(currentMusicSourceSelector)
-    console.log(musicSrc)
 
+    const currentTracks = useSelector(currentTracksSelector)
     const dispatch = useDispatch();
 
-    const handleClick = () => {
+    const handleClick = useCallback(() => {
         /* TODO -> написать логику, учесть варианты:
             1) Нажимаем на песню, которая не воспроизводится в данный момент - поменять offset
             2) Нажимаем на песню, которая воспроизводится в данный момент - меняем isPlaying на !isPlaying
         */
         if (source !== musicSrc) {
-            dispatch(setMusicSource(source))
+            dispatch(setMusicSource(source));
+            dispatch(setPlayerActiveTracks(currentTracks))
+            dispatch(setCurrentTrack(order));
+            dispatch(setIsPlaying(true))
         }
 
-        if (currentTrack === order) {
+        if (currentTrack === order && (source === musicSrc || musicSrc === null)) {
             dispatch(setIsPlaying(!isPlaying))
-        } else {
+        }
+
+        if (currentTrack !== order && source === musicSrc) {
             dispatch(setCurrentTrack(order))
             dispatch(setIsPlaying(true))
         }
-    }
+    }, [currentTrack, currentTracks, dispatch, isPlaying, musicSrc, order, source])
 
     const TinyText = styled(Typography)({
         fontSize: '0.75rem',
