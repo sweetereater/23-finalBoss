@@ -51,8 +51,8 @@ function App() {
               <PlaylistsPage />
             </Route>
           </Switch>
-          <PlayerContainer />
         </div>
+        <PlayerContainer />
       </div>
     </BrowserRouter>
   )
