@@ -13,6 +13,7 @@ import { MySavedTracks } from './components/MySavedTracks';
 import './App.css'
 import { PlaylistsPage } from './components/Playlists/PlaylistsPage';
 import { CurrentPlaylist } from './components/CurrentPlaylist/CurrentPlaylist';
+import { SearchPage } from './components/SearchPage';
 
 function App() {
 
@@ -40,6 +41,9 @@ function App() {
             </Route>
             <Route path="/accesstoken">
               <ExtractToken />
+            </Route>
+            <Route path='/search'>
+              <SearchPage />
             </Route>
             <Route path='/music'>
               <MySavedTracks />
