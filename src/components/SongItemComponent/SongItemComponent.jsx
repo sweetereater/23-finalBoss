@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -18,8 +18,10 @@ import { currentTracksSelector } from '../../store/features/currentTracks/curren
 import { savedTracksSelector } from '../../store/features/savedTracks/savedTracksSelectors';
 import { addTrackToSaved, removeTrackFromSaved } from '../../store/features/savedTracks/savedTracksThunks';
 import { getSongDuration } from '../../utils/timeFunctions';
+import { spotifyApi } from '../../store/spotifyAPI';
 
 function SongItemComponent(props) {
+    const [isSaved, setIsSaved] = useState(null);
 
     const { track, order, source } = props;
     const { id, name } = track;
@@ -33,8 +35,9 @@ function SongItemComponent(props) {
     const currentTracks = useSelector(currentTracksSelector)
     const dispatch = useDispatch();
 
-    const savedTracks = useSelector(savedTracksSelector)
-    const isSaved = savedTracks.find(tracks => tracks.id === id)
+    useEffect(() => {
+      spotifyApi.containsMySavedTracks([id]).then((res) => setIsSaved(res.body[0]))
+    }, [id])
 
     const iconColor = '#0083f5';
     const iconStyles = {
@@ -67,11 +70,11 @@ function SongItemComponent(props) {
 
     const handleTrackLike = useCallback(() => {
         if (!isSaved) {
-            dispatch(addTrackToSaved(track))
+            dispatch(addTrackToSaved(track)).then(() => setIsSaved(true))
         } else {
-            dispatch(removeTrackFromSaved(id))
+            dispatch(removeTrackFromSaved(id)).then(() => setIsSaved(false))
         }
-    }, [track]);
+    }, [track, isSaved, id]);
 
     const TinyText = styled(Typography)({
         fontSize: '0.75rem',
