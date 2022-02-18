@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { tokenSelector } from "../../store/features/access/accessSelectors";
@@ -21,6 +22,8 @@ export const Login = () => {
   }
 
   return (
-    <a href={authorizeURL}>Login</a>
+    <center>
+      <a href={authorizeURL}>Login</a>
+    </center>
   )
 }
