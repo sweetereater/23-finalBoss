@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import { tokenSelector } from '../../store/features/access/accessSelectors';
 import { activeTracksSelector, currentTrackSelector, isPlayingSelector } from '../../store/features/playerActiveTracks/activeTracksSelectors';
 import { setCurrentTrack, setIsPlaying } from '../../store/features/playerActiveTracks/playerActiveTracksSlice';
+import zIndex from '@mui/material/styles/zIndex';
 
 const PlayerContainer = () => {
 
@@ -63,7 +64,7 @@ const PlayerContainer = () => {
   return (
     <div>
       {uris.length > 0 &&
-        <Box sx={{ position: 'fixed', bottom: 0, width: '100%' }}>
+        <Box sx={{ position: 'fixed', bottom: 0, width: '100%', zIndex: 1300 }}>
           <SpotifyPlayer
             token={token}
             uris={uris}
