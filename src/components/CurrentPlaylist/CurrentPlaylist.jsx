@@ -18,6 +18,7 @@ export const CurrentPlaylist = () => {
     const params = useParams();
     const playlistID = params.playlistId;
     const currentPL = useSelector(playlistsSelector).find(pl => pl.id === playlistID)
+    console.log(currentPL)
 
     const currentPLTracks = useSelector(currentPlaylistTracksSelector);
 
@@ -33,15 +34,17 @@ export const CurrentPlaylist = () => {
     if (isLoading) return <CircularProgress />
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-            <Box sx={{ marginRight: '26px'}}>
+        <Box sx={{ display: 'flex', flexDirection: 'row', marginLeft: '280px', }}>
+            <Box sx={{ marginRight: '26px' }}>
                 <h1>{currentPL.name}</h1>
-                <h4>{currentPL.description}</h4>
+                <h4 dangerouslySetInnerHTML={{ __html: currentPL.description }} />
                 {
-                    (currentPL.images.length > 0) && <img src={currentPL.images[0].url} />
+                    (currentPL.images.length > 0) && <img width='640px' height='640px' src={currentPL.images[0].url} />
                 }
             </Box>
-            <Box>
+            <Box sx={{
+                width: '100%',
+            }}>
                 <Tracks tracks={currentPLTracks} source={playlistID} />
             </Box>
 
