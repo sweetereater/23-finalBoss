@@ -6,7 +6,6 @@ import { tokenSelector } from "../../store/features/access/accessSelectors";
 import { playlistsSelector } from "../../store/features/playlists/playlistsSelectors";
 import { getPlaylists } from "../../store/features/playlists/playlistsThunks";
 import { PlayListCard } from "./PlaylistCard";
-import './PlayLists.css'
 
 export const PlaylistsPage = () => {
     const dispatch = useDispatch();

@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material"
 import { Link } from "react-router-dom"
-import './PlayLists.css'
-/*  TODO -> красиво отрисовать компонент PlayList */
+
+
 export const PlayListCard = (props) => {
     return (
         <Box sx={{ padding: '2rem', borderRadius: '8px' }}>
