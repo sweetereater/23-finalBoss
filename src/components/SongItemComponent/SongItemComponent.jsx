@@ -31,6 +31,7 @@ function SongItemComponent(props) {
     const musicSrc = useSelector(currentMusicSourceSelector)
 
     const currentTracks = useSelector(currentTracksSelector)
+
     const dispatch = useDispatch();
 
     const savedTracks = useSelector(savedTracksSelector)
@@ -71,7 +72,7 @@ function SongItemComponent(props) {
         } else {
             dispatch(removeTrackFromSaved(id))
         }
-    }, [track]);
+    }, [track, id, isSaved]);
 
     const TinyText = styled(Typography)({
         fontSize: '0.75rem',
