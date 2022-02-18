@@ -21,11 +21,11 @@ const drawerWidth = 240;
 
 export default function HeaderWithDrawerComponent() {
     return (
-        <BrowserRouter>
             <Box sx={{ display: 'flex' }}>
                 <CssBaseline />
                 <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
                     <Toolbar>
+                        <img className='Header_Icon' src="https://img.icons8.com/dusk/50/000000/spotify.png"/>
                         <Typography variant="h6" noWrap component="div">
                             Best player ever
                         </Typography>
@@ -77,14 +77,7 @@ export default function HeaderWithDrawerComponent() {
                 </Drawer>
                 <Box component="main" sx={{ flexGrow: 1, p: 2 }}>
                     <Toolbar />
-                    <Typography paragraph>
-                        Контент №1 главной
-                    </Typography>
-                    <Typography paragraph>
-                        Контент №2 главной
-                    </Typography>
                 </Box>
             </Box>
-        </BrowserRouter>
     );
 }

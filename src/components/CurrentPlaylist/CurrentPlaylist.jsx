@@ -32,7 +32,7 @@ export const CurrentPlaylist = () => {
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-            <Box>
+            <Box sx={{ marginRight: '26px'}}>
                 <h1>{currentPL.name}</h1>
                 <h4>{currentPL.description}</h4>
                 {

@@ -7,6 +7,7 @@ import { activeTracksSelector, currentMusicSourceSelector, currentTrackSelector,
 import { setCurrentTrack, setIsPlaying, setPlayerActiveTracks } from '../../store/features/playerActiveTracks/playerActiveTracksSlice';
 import { savedTracksSelector } from '../../store/features/savedTracks/savedTracksSelectors';
 import { currentPlaylistTracksSelector } from '../../store/features/currentPlaylist/currentPlaylistSelectors';
+import './PlayerContainer.css'
 
 const PlayerContainer = () => {
 
@@ -62,7 +63,7 @@ const PlayerContainer = () => {
   */
 
   return (
-      <div>
+      <div className='PlayerContainer'>
         {uris.length > 0 && <SpotifyPlayer
             token={token}
             uris={uris}
