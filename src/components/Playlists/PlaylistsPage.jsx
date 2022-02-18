@@ -15,8 +15,12 @@ export const PlaylistsPage = () => {
     const token = useSelector(tokenSelector)
 
     useEffect(() => {
-        dispatch(getPlaylists())
+        /* Пока добавим условия для того, чтобы убрать лишние запросы к серверу */
+        if (!playlists.length) {
+            dispatch(getPlaylists())
+        }
     }, [token])
+
     if (!token) return <Redirect to='/login' />
 
     return (
