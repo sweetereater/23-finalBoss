@@ -5,6 +5,7 @@ import { savedTracksSelector } from "../../store/features/savedTracks/savedTrack
 import { getSavedTracks } from '../../store/features/savedTracks/savedTracksThunks';
 import { tokenSelector } from '../../store/features/access/accessSelectors';
 import Tracks from '../Tracks/Tracks';
+import { Box } from '@mui/material';
 
 
 const MySavedTracks = () => {
@@ -20,9 +21,9 @@ const MySavedTracks = () => {
   if (!token) return <Redirect to='/login' />
 
   return (
-    <div>
+    <Box sx={{ display: 'flex', flexDirection: 'column', marginLeft: '280px' }}>
       <Tracks tracks={tracks} source="/music" />
-    </div>)
+    </Box>)
 }
 
 export default MySavedTracks;
