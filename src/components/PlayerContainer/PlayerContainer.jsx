@@ -7,6 +7,7 @@ import { tokenSelector } from '../../store/features/access/accessSelectors';
 import { activeTracksSelector, currentTrackSelector, isPlayingSelector } from '../../store/features/playerActiveTracks/activeTracksSelectors';
 import { setCurrentTrack, setIsPlaying } from '../../store/features/playerActiveTracks/playerActiveTracksSlice';
 import zIndex from '@mui/material/styles/zIndex';
+
 const PlayerContainer = () => {
 
   const dispatch = useDispatch();
