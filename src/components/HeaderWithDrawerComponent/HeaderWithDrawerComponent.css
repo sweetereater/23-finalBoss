@@ -5,3 +5,10 @@
 .Header_Icon {
     margin-right: 5px;
 }
+.drawer {
+    transition: .5s;
+    opacity: 0.5;
+}
+.drawer:hover {
+    opacity: 1;
+}
