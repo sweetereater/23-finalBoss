@@ -84,6 +84,7 @@ function SongItemComponent(props) {
     return (
         <Card sx={{
             display: 'flex',
+            width: '80%',
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
