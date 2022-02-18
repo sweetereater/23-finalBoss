@@ -13,6 +13,7 @@ import './App.css'
 import { PlaylistsPage } from './components/Playlists/PlaylistsPage';
 import { CurrentPlaylist } from './components/CurrentPlaylist/CurrentPlaylist';
 import HeaderWithDrawerComponent from "./components/HeaderWithDrawerComponent/HeaderWithDrawerComponent";
+import { SearchPage } from './components/SearchPage';
 
 function App() {
 
@@ -41,6 +42,9 @@ function App() {
             <Route path="/accesstoken">
               <ExtractToken />
             </Route>
+            <Route path='/search'>
+              <SearchPage />
+            </Route>
             <Route path='/music'>
               <MySavedTracks />
             </Route>
@@ -51,8 +55,8 @@ function App() {
               <PlaylistsPage />
             </Route>
           </Switch>
-          <PlayerContainer />
         </div>
+        <PlayerContainer />
       </div>
     </BrowserRouter>
   )

@@ -1,12 +1,11 @@
 import SpotifyPlayer from 'react-spotify-web-playback';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import Box from '@mui/material/Box';
 
 import { tokenSelector } from '../../store/features/access/accessSelectors';
-import { activeTracksSelector, currentMusicSourceSelector, currentTrackSelector, isPlayingSelector } from '../../store/features/playerActiveTracks/activeTracksSelectors';
-import { setCurrentTrack, setIsPlaying, setPlayerActiveTracks } from '../../store/features/playerActiveTracks/playerActiveTracksSlice';
-import { savedTracksSelector } from '../../store/features/savedTracks/savedTracksSelectors';
-import { currentPlaylistTracksSelector } from '../../store/features/currentPlaylist/currentPlaylistSelectors';
+import { activeTracksSelector, currentTrackSelector, isPlayingSelector } from '../../store/features/playerActiveTracks/activeTracksSelectors';
+import { setCurrentTrack, setIsPlaying } from '../../store/features/playerActiveTracks/playerActiveTracksSlice';
 
 const PlayerContainer = () => {
 
@@ -62,8 +61,10 @@ const PlayerContainer = () => {
   */
 
   return (
-      <div>
-        {uris.length > 0 && <SpotifyPlayer
+    <div>
+      {uris.length > 0 &&
+        <Box sx={{ position: 'fixed', bottom: 0, width: '100%' }}>
+          <SpotifyPlayer
             token={token}
             uris={uris}
             play={isPlaying}
@@ -79,8 +80,9 @@ const PlayerContainer = () => {
               sliderColor: '#329dfa',
               sliderTrackColor: '#b0b5b2',
             }}
-        />}
-      </div>
+          />
+        </Box>}
+    </div>
   )
 }
 

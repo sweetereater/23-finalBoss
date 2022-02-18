@@ -17,7 +17,7 @@ export const Login = () => {
 
   const token = useSelector(tokenSelector);
   if (token) {
-    return <Redirect to='/music' />
+    return <Redirect to='/search' />
   }
 
   return (

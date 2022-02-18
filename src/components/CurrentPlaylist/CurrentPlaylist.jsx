@@ -8,6 +8,7 @@ import { getCurrentPlaylistTracks } from '../../store/features/currentPlaylist/c
 import { loaderSelector } from '../../store/features/loader/loaderSelectors';
 import { playlistsSelector } from '../../store/features/playlists/playlistsSelectors';
 import Tracks from '../Tracks/Tracks';
+import { setPlayListTracks } from '../../store/features/currentPlaylist/currentPlaylistSlice'
 
 export const CurrentPlaylist = () => {
 
@@ -24,6 +25,7 @@ export const CurrentPlaylist = () => {
 
     useEffect(() => {
         dispatch(getCurrentPlaylistTracks(playlistID))
+        return () => dispatch(setPlayListTracks([]))
     }, [playlistID])
 
     if (!token) return <Redirect to='/login' />
