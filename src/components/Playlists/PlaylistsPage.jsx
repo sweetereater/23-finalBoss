@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Redirect } from 'react-router-dom';
@@ -20,11 +21,8 @@ export const PlaylistsPage = () => {
     if (!token) return <Redirect to='/login' />
 
     return (
-        <div>
-            <h1>Playlists: </h1>
-            <div className='PlaylistsPage'>
-                {playlists.map(pl => <PlayListCard key={pl.id} {...pl} />)}
-            </div>
-        </div>
+        <Box sx={{ marginLeft: '240px', display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
+            {playlists.map(pl => <PlayListCard key={pl.id} {...pl} />)}
+        </Box>
     )
 }
