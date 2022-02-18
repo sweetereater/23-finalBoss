@@ -4,7 +4,13 @@ import { Link } from "react-router-dom"
 
 export const PlayListCard = (props) => {
     return (
-        <Box sx={{ padding: '2rem', borderRadius: '8px' }}>
+        <Box sx={{
+            padding: '2rem',
+            borderRadius: '8px',
+            '&:hover': {
+                backgroundColor: '#ededed'
+            }
+        }}>
             <Link to={`/playlists/${props.id}`}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <Typography
