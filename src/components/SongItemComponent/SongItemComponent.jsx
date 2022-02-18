@@ -19,6 +19,10 @@ import { savedTracksSelector } from '../../store/features/savedTracks/savedTrack
 import { addTrackToSaved, removeTrackFromSaved } from '../../store/features/savedTracks/savedTracksThunks';
 import { getSongDuration } from '../../utils/timeFunctions';
 
+import { setPlayerActiveTracks } from '../../store/features/playerActiveTracks/playerActiveTracksSlice';
+import { currentTracksSelector } from '../../store/features/currentTracks/currentTracksSelector';
+import { useCallback } from 'react';
+
 function SongItemComponent(props) {
 
     const { track, order, source } = props;
@@ -33,7 +37,6 @@ function SongItemComponent(props) {
     const currentTracks = useSelector(currentTracksSelector)
     const dispatch = useDispatch();
 
-
     const savedTracks = useSelector(savedTracksSelector)
     const isSaved = savedTracks.find(tracks => tracks.id === id)
 
@@ -44,7 +47,6 @@ function SongItemComponent(props) {
         width: 38,
         cursor: 'pointer',
     }
-
     const handleClick = useCallback(() => {
         /* TODO -> написать логику, учесть варианты:
             1) Нажимаем на песню, которая не воспроизводится в данный момент - поменять offset

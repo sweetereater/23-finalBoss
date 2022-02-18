@@ -8,11 +8,11 @@ import Login from './components/Login';
 import { ExtractToken } from './components/ExtractToken/ExtractToken';
 import { tokenSelector } from './store/features/access/accessSelectors';
 import { getUserInfo } from './store/features/user/userThunks';
-import Header from "./components/HeaderComponent/HeaderComponent";
 import { MySavedTracks } from './components/MySavedTracks';
 import './App.css'
 import { PlaylistsPage } from './components/Playlists/PlaylistsPage';
 import { CurrentPlaylist } from './components/CurrentPlaylist/CurrentPlaylist';
+import HeaderWithDrawerComponent from "./components/HeaderWithDrawerComponent/HeaderWithDrawerComponent";
 import { SearchPage } from './components/SearchPage';
 
 function App() {
@@ -33,7 +33,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className='App'>
-        <Header />
+        <HeaderWithDrawerComponent />
         <div className='MainWrapper'>
           <Switch>
             <Route path='/login'>

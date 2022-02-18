@@ -17,9 +17,9 @@ const PlayerContainer = () => {
   const tracks = useSelector(activeTracksSelector);
 
   const handlePlayerStateChange = (state) => {
-    /* 
-      state.type: 
-        "status_update" | 
+    /*
+      state.type:
+        "status_update" |
         "track_update" | -> previous / next button
         "player_update" | -> start / stop button
         "progress_update" -> track progress bar
@@ -39,13 +39,12 @@ const PlayerContainer = () => {
     }
   }
 
-  /* 
+  /*
     Из объекта трека берем:
       name - имя трека + исполнитель
       duration_ms - длительность в миллисекундах
       artists - массив с исполнителями (href, id, name)
       album.images[] 0 -> 600x600, 1-> 300x300, 2-> 64x64
-
   */
 
   console.log('PlayerContainer tracks', tracks);
@@ -56,8 +55,8 @@ const PlayerContainer = () => {
   console.log('!!! PLAYER SETTINGS !!!')
   console.log(`Is playing -> ${isPlaying}, currentTrack -> ${currentTrack}`)
 
-  /* 
-    Для того, чтобы стилизовать слайдер, можно обратиться к ._SliderRSWP 
+  /*
+    Для того, чтобы стилизовать слайдер, можно обратиться к ._SliderRSWP
     Например, чтобы установить cursor: pointer
   */
 
