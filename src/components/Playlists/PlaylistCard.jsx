@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 /*  TODO -> красиво отрисовать компонент PlayList */
 export const PlayListCard = (props) => {
     return (
-        <Box sx={{ className: 'playListCard', padding: '1rem', borderRadius: '8px' }}>
+        <Box sx={{ className: 'playListCard', padding: '2rem', borderRadius: '8px' }}>
             <Link to={`/playlists/${props.id}`}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <Typography
