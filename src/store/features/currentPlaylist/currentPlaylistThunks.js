@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { spotifyApi } from '../../spotifyAPI'
 import { setLoading } from "../loader/loaderSlice";
+import { addTracksToPlaylist } from "../playlists/playlistsSlice";
 import { getSavedTracks } from "../savedTracks/savedTracksThunks";
 import { setPlayListTracks } from "./currentPlaylistSlice";
 
@@ -17,4 +18,5 @@ export const getCurrentPlaylistTracks = createAsyncThunk('currentPlayList/getPla
     dispatch(setLoading(false))
     const tracks = response.body.items.map(item => item.track);
     dispatch(setPlayListTracks(tracks));
+    dispatch(addTracksToPlaylist({ id, tracks }))
 })
