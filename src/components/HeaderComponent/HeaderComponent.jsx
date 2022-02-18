@@ -21,6 +21,7 @@ const ResponsiveAppBar = () => {
                     </Typography>
                     <Link to='/playlists'>Playlists</Link>
                     <Link to='/music'>Listen some goood music</Link>
+                    <Link to='/search'>Search</Link>
                 </Toolbar>
             </Container>
         </AppBar>

@@ -12,8 +12,11 @@ const MySavedTracks = () => {
   const token = useSelector(tokenSelector);
   const tracks = useSelector(savedTracksSelector);
   useEffect(() => {
-    dispatch(getSavedTracks())
+    if (tracks.length === 0) {
+      dispatch(getSavedTracks())
+    }
   }, [token])
+
   if (!token) return <Redirect to='/login' />
 
   return (

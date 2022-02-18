@@ -10,10 +10,18 @@ export const savedTracksSlice = createSlice({
     reducers: {
         setSavedTracks: (state, action) => {
             state.savedTracks = action.payload
+        },
+
+        addTrack: (state, action) => {
+            state.savedTracks = [action.payload, ...state.savedTracks]
+        },
+
+        removeTrack: (state, action) => {
+            state.savedTracks = state.savedTracks.filter(track => track.id !== action.payload)
         }
     },
 })
 
-export const { setSavedTracks } = savedTracksSlice.actions;
+export const { setSavedTracks, addTrack, removeTrack, } = savedTracksSlice.actions;
 
 export default savedTracksSlice.reducer;

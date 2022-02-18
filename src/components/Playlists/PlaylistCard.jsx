@@ -4,7 +4,10 @@ import './PlayListCard.css'
 export const PlayListCard = (props) => {
     return (
         <div className='PlayListCard'>
-            <Link to={`/playlists/${props.id}`}>{props.name}</Link>
+            <Link to={`/playlists/${props.id}`}>
+              <div>{props.name}</div>
+              <img src={props.images[0].url} alt="Обложка плейлиста" />
+            </Link>
         </div>
     )
 }
