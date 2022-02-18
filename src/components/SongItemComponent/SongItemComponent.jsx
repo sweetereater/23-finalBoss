@@ -19,10 +19,6 @@ import { savedTracksSelector } from '../../store/features/savedTracks/savedTrack
 import { addTrackToSaved, removeTrackFromSaved } from '../../store/features/savedTracks/savedTracksThunks';
 import { getSongDuration } from '../../utils/timeFunctions';
 
-import { setPlayerActiveTracks } from '../../store/features/playerActiveTracks/playerActiveTracksSlice';
-import { currentTracksSelector } from '../../store/features/currentTracks/currentTracksSelector';
-import { useCallback } from 'react';
-
 function SongItemComponent(props) {
 
     const { track, order, source } = props;
