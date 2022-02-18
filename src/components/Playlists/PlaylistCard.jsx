@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import './PlayListCard.css'
+import './PlayLists.css'
 /*  TODO -> красиво отрисовать компонент PlayList */
 export const PlayListCard = (props) => {
     return (

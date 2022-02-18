@@ -5,6 +5,7 @@ import { tokenSelector } from "../../store/features/access/accessSelectors";
 import { playlistsSelector } from "../../store/features/playlists/playlistsSelectors";
 import { getPlaylists } from "../../store/features/playlists/playlistsThunks";
 import { PlayListCard } from "./PlaylistCard";
+import './PlayLists.css'
 
 export const PlaylistsPage = () => {
     const dispatch = useDispatch();
@@ -21,7 +22,9 @@ export const PlaylistsPage = () => {
     return (
         <div>
             <h1>Playlists: </h1>
-            {playlists.map(pl => <PlayListCard key={pl.id} {...pl} />)}
+            <div className='PlaylistsPage'>
+                {playlists.map(pl => <PlayListCard key={pl.id} {...pl} />)}
+            </div>
         </div>
     )
 }

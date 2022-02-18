@@ -32,6 +32,7 @@ export default function HeaderWithDrawerComponent() {
                     </Toolbar>
                 </AppBar>
                 <Drawer
+                    className='drawer'
                     variant="permanent"
                     sx={{
                         width: drawerWidth,
