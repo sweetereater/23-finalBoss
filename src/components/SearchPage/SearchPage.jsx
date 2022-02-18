@@ -6,16 +6,16 @@ import { useSelector } from 'react-redux';
 import { tokenSelector } from '../../store/features/access/accessSelectors';
 import useDebounce from './debounce';
 
-import { Input } from '@mui/material';
+import { Box, Input } from '@mui/material';
 
 const SearchPage = () => {
   const [searchValue, setSearchValue] = useState('');
   const [searchResult, setSearchResult] = useState([]);
   const [source, setSource] = useState('')
-  const token = useSelector(tokenSelector); 
+  const token = useSelector(tokenSelector);
 
   const debouncedSearch = useDebounce(searchValue, 1000)
-  
+
   useEffect(() => {
     if (!token) return;
     if (debouncedSearch) {
@@ -35,10 +35,10 @@ const SearchPage = () => {
   if (!token) return <Redirect to='/login' />
 
   return (
-    <div>
-      <Input placeholder='Search music...' value={searchValue} onChange={handleInput}></Input>
+    <Box sx={{ display: 'flex', flexDirection: 'column', marginLeft: '280px' }}>
+      <Input style={{ width: '80%', marginBottom: '2rem', }} placeholder='Search music...' value={searchValue} onChange={handleInput}></Input>
       <Tracks tracks={searchResult} source={source} />
-    </div>
+    </Box>
   )
 }
 
