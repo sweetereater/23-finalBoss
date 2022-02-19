@@ -27,7 +27,7 @@ const MySavedTracks = () => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', marginLeft: '280px' }}>
-      <Tracks tracks={tracks} source="/music" />
+      <Tracks tracks={tracks} source="/music" width={1700} />
     </Box>)
 }
 
