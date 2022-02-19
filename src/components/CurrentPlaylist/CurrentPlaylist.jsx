@@ -1,4 +1,4 @@
-import { Box, CircularProgress } from '@mui/material';
+import { Box, CircularProgress, Typography } from '@mui/material';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useParams } from 'react-router-dom';
@@ -42,21 +42,32 @@ export const CurrentPlaylist = () => {
 
     return (
         <Box sx={{
+            marginTop: '-15px',
             display: 'flex',
             flexDirection: 'row',
             marginLeft: '280px',
+            height: '100vh'
         }}>
-            <Box sx={{ marginRight: '26px' }}>
-                <h1>{currentPL.name}</h1>
-                <h4 dangerouslySetInnerHTML={{ __html: currentPL.description }} />
+            <Box sx={{ marginRight: '100px' }}>
+                <Typography
+                    variant="h4"
+                    component="div"
+                >
+                    {currentPL.name}
+                </Typography>
+                <Typography
+                    variant="h6"
+                    component="div"
+                    dangerouslySetInnerHTML={{ __html: currentPL.description }}
+                />
                 {
-                    (currentPL.images.length > 0) && <img width='640px' height='640px' src={currentPL.images[0].url} />
+                    (currentPL.images.length > 0) && <img width='600px' height='600px' src={currentPL.images[0].url} />
                 }
             </Box>
             <Box sx={{
                 width: '100%',
             }}>
-                <Tracks tracks={currentPLTracks} source={playlistID} />
+                <Tracks tracks={currentPLTracks} source={playlistID} width={800} />
             </Box>
 
         </Box>
