@@ -21,9 +21,17 @@ import { getSongDuration } from '../../utils/timeFunctions';
 import { spotifyApi } from '../../store/spotifyAPI';
 
 function SongItemComponent(props) {
-    const [isSaved, setIsSaved] = useState(null);
+    // const [isSaved, setIsSaved] = useState(null);
 
     const { track, order, source } = props;
+
+    const { artists } = track;
+
+    let artistsOfTrack;
+    if (artists.length) {
+        artistsOfTrack = artists.map(artist => artist.name).join(", ");
+    }
+
     const { id, name } = track;
     const duration = getSongDuration(track.duration_ms);
     const img = track.album.images[2].url;
@@ -38,9 +46,12 @@ function SongItemComponent(props) {
 
     const dispatch = useDispatch();
 
-    useEffect(() => {
-      spotifyApi.containsMySavedTracks([id]).then((res) => setIsSaved(res.body[0]))
-    }, [id])
+    const savedTracks = useSelector(savedTracksSelector)
+    const isSaved = savedTracks.find(tracks => tracks.id === id)
+
+    // useEffect(() => {
+    //     spotifyApi.containsMySavedTracks([id]).then((res) => setIsSaved(res.body[0]))
+    // }, [id])
 
     const iconColor = '#0083f5';
     const iconStyles = {
@@ -61,21 +72,31 @@ function SongItemComponent(props) {
             dispatch(setCurrentTrackId(id));
             dispatch(setIsPlaying(true))
         } else if (id === activeTrackId) {
-          dispatch(setIsPlaying(!isPlaying));
+            dispatch(setIsPlaying(!isPlaying));
         } else {
-          dispatch(setPlayerActiveTracks(currentTracks))
-          dispatch(setCurrentTrack(order));
-          dispatch(setCurrentTrackId(id));
-          dispatch(setIsPlaying(true))
+            dispatch(setPlayerActiveTracks(currentTracks))
+            dispatch(setCurrentTrack(order));
+            dispatch(setCurrentTrackId(id));
+            dispatch(setIsPlaying(true))
         }
 
     }, [currentTrack, currentTracks, dispatch, isPlaying, musicSrc, order, source, id, activeTrackId])
 
+    /* without Redux  */
+    // const handleTrackLike = useCallback(() => {
+    //     if (!isSaved) {
+    //         dispatch(addTrackToSaved(track)).then(() => setIsSaved(true))
+    //     } else {
+    //         dispatch(removeTrackFromSaved(id)).then(() => setIsSaved(false))
+    //     }
+    // }, [track, id, isSaved]);
+
+    /* with Redux */
     const handleTrackLike = useCallback(() => {
         if (!isSaved) {
-            dispatch(addTrackToSaved(track)).then(() => setIsSaved(true))
+            dispatch(addTrackToSaved(track))
         } else {
-            dispatch(removeTrackFromSaved(id)).then(() => setIsSaved(false))
+            dispatch(removeTrackFromSaved(id))
         }
     }, [track, id, isSaved]);
 
@@ -109,10 +130,13 @@ function SongItemComponent(props) {
                         }
                     </IconButton>
                 </Box>
-                <CardContent sx={{ display: 'flex', flexDirection: 'row', flex: '1 0 auto', alignItems: 'center' }}>
+                <CardContent sx={{ display: 'flex', flexDirection: 'column', flex: '1 0 auto', alignItems: 'flex-start', }}>
                     <Typography component="div" variant="subtitle1">
                         {name}
                     </Typography>
+                    {artistsOfTrack && <Typography component="div" variant="subtitle2">
+                        {artistsOfTrack}
+                    </Typography>}
                 </CardContent>
             </Box>
             <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
