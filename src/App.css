@@ -12,3 +12,7 @@
   height: 100vh;
 }
 
+.List::-webkit-scrollbar {
+  width: 0;
+}
+
