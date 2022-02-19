@@ -12,7 +12,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentTrack, setIsPlaying, setMusicSource } from '../../store/features/playerActiveTracks/playerActiveTracksSlice';
-import { currentMusicSourceSelector, currentTrackSelector, isPlayingSelector } from '../../store/features/playerActiveTracks/activeTracksSelectors';
+import { activeTracksSelector, currentMusicSourceSelector, currentTrackSelector, isPlayingSelector } from '../../store/features/playerActiveTracks/activeTracksSelectors';
 import { setPlayerActiveTracks } from '../../store/features/playerActiveTracks/playerActiveTracksSlice';
 import { currentTracksSelector } from '../../store/features/currentTracks/currentTracksSelector';
 import { savedTracksSelector } from '../../store/features/savedTracks/savedTracksSelectors';
@@ -31,6 +31,8 @@ function SongItemComponent(props) {
     const musicSrc = useSelector(currentMusicSourceSelector)
 
     const currentTracks = useSelector(currentTracksSelector)
+
+    const activeTrack = useSelector(activeTracksSelector)[currentTrack]
 
     const dispatch = useDispatch();
 
@@ -90,14 +92,14 @@ function SongItemComponent(props) {
             alignItems: 'center',
             justifyContent: 'space-between',
             margin: '10px 0',
-            bgcolor: (source === musicSrc && currentTrack === order) ? '#a7e0fc' : "#fff"
+            bgcolor: (source === musicSrc && activeTrack.id === id) ? '#a7e0fc' : "#fff"
         }}>
             <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1, }}>
                     <img src={img} alt="" />
                     <IconButton aria-label="play/pause" onClick={handleClick} >
                         {
-                            (source === musicSrc && currentTrack === order) && isPlaying ?
+                            (source === musicSrc && activeTrack.id === id) && isPlaying ?
                                 <PauseIcon sx={iconStyles} /> :
                                 <PlayArrowIcon sx={iconStyles} />
                         }
