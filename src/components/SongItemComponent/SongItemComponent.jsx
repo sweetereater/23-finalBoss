@@ -23,7 +23,7 @@ import { spotifyApi } from '../../store/spotifyAPI';
 function SongItemComponent(props) {
     // const [isSaved, setIsSaved] = useState(null);
 
-    const { track, order, source } = props;
+    const { track, order, source, style } = props;
 
     const { artists } = track;
 
@@ -100,7 +100,6 @@ function SongItemComponent(props) {
         }
     }, [track, id, isSaved]);
 
-
     const TinyText = styled(Typography)({
         fontSize: '0.75rem',
         opacity: 0.38,
@@ -110,46 +109,48 @@ function SongItemComponent(props) {
     });
 
     return (
-        <Card sx={{
-            display: 'flex',
-            width: '80%',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            margin: '10px 0',
-            bgcolor: (source === musicSrc && activeTrackId === id) ? '#a7e0fc' : "#fff"
-        }}>
-            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1, }}>
-                    <img src={img} alt="" />
-                    <IconButton aria-label="play/pause" onClick={handleClick} >
-                        {
-                            (source === musicSrc && activeTrackId === id) && isPlaying ?
-                                <PauseIcon sx={iconStyles} /> :
-                                <PlayArrowIcon sx={iconStyles} />
+        <div style={{ ...style, display: 'flex' }}>
+            <Card sx={{
+                display: 'flex',
+                width: '80%',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                margin: '10px 0',
+                bgcolor: (source === musicSrc && activeTrackId === id) ? '#a7e0fc' : "#fff",
+            }}>
+                <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1, }}>
+                        <img src={img} alt="" />
+                        <IconButton aria-label="play/pause" onClick={handleClick} >
+                            {
+                                (source === musicSrc && activeTrackId === id) && isPlaying ?
+                                    <PauseIcon sx={iconStyles} /> :
+                                    <PlayArrowIcon sx={iconStyles} />
+                            }
+                        </IconButton>
+                    </Box>
+                    <CardContent sx={{ display: 'flex', flexDirection: 'column', flex: '1 0 auto', alignItems: 'flex-start', }}>
+                        <Typography component="div" variant="subtitle1">
+                            {name}
+                        </Typography>
+                        {artistsOfTrack && <Typography component="div" variant="subtitle2">
+                            {artistsOfTrack}
+                        </Typography>}
+                    </CardContent>
+                </Box>
+                <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                    <Box onClick={handleTrackLike}>
+                        {isSaved ?
+                            <FavoriteIcon sx={{ ...iconStyles, height: 24, width: 24 }} /> :
+                            <FavoriteBorderIcon sx={{ ...iconStyles, height: 24, width: 24 }} />
                         }
-                    </IconButton>
+                    </Box>
+                    <TinyText>{duration}</TinyText>
                 </Box>
-                <CardContent sx={{ display: 'flex', flexDirection: 'column', flex: '1 0 auto', alignItems: 'flex-start', }}>
-                    <Typography component="div" variant="subtitle1">
-                        {name}
-                    </Typography>
-                    {artistsOfTrack && <Typography component="div" variant="subtitle2">
-                        {artistsOfTrack}
-                    </Typography>}
-                </CardContent>
-            </Box>
-            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                <Box onClick={handleTrackLike}>
-                    {isSaved ?
-                        <FavoriteIcon sx={{ ...iconStyles, height: 24, width: 24 }} /> :
-                        <FavoriteBorderIcon sx={{ ...iconStyles, height: 24, width: 24 }} />
-                    }
-                </Box>
-                <TinyText>{duration}</TinyText>
-            </Box>
 
-        </Card>
+            </Card>
+        </div >
     );
 }
 export default SongItemComponent
