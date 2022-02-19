@@ -24,7 +24,7 @@ export const PlaylistsPage = () => {
     if (!token) return <Redirect to='/login' />
 
     return (
-        <Box sx={{ marginLeft: '240px', display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
+        <Box sx={{ marginLeft: '240px', display: 'flex', justifyContent: 'center', flexWrap: 'wrap', paddingBottom: '100px' }}>
             {playlists.map(pl => <PlayListCard key={pl.id} {...pl} />)}
         </Box>
     )
