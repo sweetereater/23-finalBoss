@@ -46,7 +46,6 @@ export const CurrentPlaylist = () => {
             display: 'flex',
             flexDirection: 'row',
             marginLeft: '280px',
-            height: '100vh'
         }}>
             <Box sx={{ marginRight: '100px' }}>
                 <Typography

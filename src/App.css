@@ -9,7 +9,7 @@
   min-width: 800px;
   max-width: 1920px;
   /* margin: 0 auto; */
-  height: 100vh;
+  /* height: 100vh; */
 }
 
 .List::-webkit-scrollbar {
