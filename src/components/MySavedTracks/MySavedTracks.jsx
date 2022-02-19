@@ -18,15 +18,30 @@ const MySavedTracks = () => {
     if (tracks.length === 0) {
       dispatch(getSavedTracks())
     }
-  }, [token])
+  }, [token, tracks])
 
   const [searchValue, setSearchValue] = useState('');
+  const [searchResult, setSearchResult] = useState([]);
   const debouncedSearch = useDebounce(searchValue, 1000)
 
   const handleInput = useCallback((e) => {
     setSearchValue(e.target.value)
-  }, [searchValue])
+  }, [])
 
+  useEffect(() => {
+    if (debouncedSearch) {
+      const filteredTracks = tracks.filter(track => {
+        const searchingFor = debouncedSearch.toLowerCase()
+        const trackName = track.name.toLowerCase()
+        const artistsString = track.artists.map(artist => artist.name).join(', ').toLowerCase();
+    
+        return trackName.includes(searchingFor) || artistsString.includes(searchingFor)
+      })
+      setSearchResult(filteredTracks)
+    } else {
+      setSearchResult(tracks)
+    }
+  }, [tracks, debouncedSearch])
 
   const isLoading = useSelector(loaderSelector);
 
@@ -35,18 +50,10 @@ const MySavedTracks = () => {
   if (!token) return <Redirect to='/login' />
   console.log(tracks);
 
-  const filteredTracks = tracks.filter(track => {
-    const searchingFor = debouncedSearch.toLowerCase()
-    const trackName = track.name.toLowerCase()
-    const artistsString = track.artists.map(artist => artist.name).join(', ').toLowerCase();
-
-    return trackName.includes(searchingFor) || artistsString.includes(searchingFor)
-  })
-
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', marginLeft: '280px' }}>
       <Input style={{ width: '90%', marginBottom: '2rem', }} placeholder="Let's find something interesting" value={searchValue} onChange={handleInput}></Input>
-      <Tracks tracks={filteredTracks} source="/music" width={1600} />
+      <Tracks tracks={searchResult} source="/music" width={1600} />
     </Box>)
 }
 
