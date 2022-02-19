@@ -6,7 +6,7 @@ import { tokenSelector } from '../../store/features/access/accessSelectors';
 import { currentPlaylistTracksSelector } from '../../store/features/currentPlaylist/currentPlaylistSelectors';
 import { getCurrentPlaylistTracks } from '../../store/features/currentPlaylist/currentPlaylistThunks';
 import { loaderSelector } from '../../store/features/loader/loaderSelectors';
-import { playlistsSelector } from '../../store/features/playlists/playlistsSelectors';
+import { playlistsSelector, tracksFromPlaylistByIdSelector } from '../../store/features/playlists/playlistsSelectors';
 import Tracks from '../Tracks/Tracks';
 import { setPlayListTracks } from '../../store/features/currentPlaylist/currentPlaylistSlice'
 
@@ -18,23 +18,34 @@ export const CurrentPlaylist = () => {
     const params = useParams();
     const playlistID = params.playlistId;
     const currentPL = useSelector(playlistsSelector).find(pl => pl.id === playlistID)
-    console.log(currentPL)
 
     const currentPLTracks = useSelector(currentPlaylistTracksSelector);
+    const currentPLTracksFromStore = useSelector(tracksFromPlaylistByIdSelector)(playlistID);
 
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getCurrentPlaylistTracks(playlistID))
+
+        if (currentPLTracksFromStore.length) {
+            dispatch(setPlayListTracks(currentPLTracksFromStore))
+        } else {
+            dispatch(getCurrentPlaylistTracks(playlistID))
+        }
+
         return () => dispatch(setPlayListTracks([]))
-    }, [playlistID])
+
+    }, [playlistID, currentPLTracksFromStore])
 
     if (!token) return <Redirect to='/login' />
 
     if (isLoading) return <CircularProgress />
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'row', marginLeft: '280px', }}>
+        <Box sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            marginLeft: '280px',
+        }}>
             <Box sx={{ marginRight: '26px' }}>
                 <h1>{currentPL.name}</h1>
                 <h4 dangerouslySetInnerHTML={{ __html: currentPL.description }} />
