@@ -4,8 +4,8 @@ import { Redirect } from 'react-router-dom';
 import Box from '@mui/material/Box';
 
 import { tokenSelector } from '../../store/features/access/accessSelectors';
-import { activeTracksSelector, currentTrackSelector, isPlayingSelector } from '../../store/features/playerActiveTracks/activeTracksSelectors';
-import { setCurrentTrack, setIsPlaying } from '../../store/features/playerActiveTracks/playerActiveTracksSlice';
+import { activeTracksSelector, currentTrackSelector, isPlayingSelector, currentTrackIdSelector } from '../../store/features/playerActiveTracks/activeTracksSelectors';
+import { setCurrentTrack, setIsPlaying, setCurrentTrackId } from '../../store/features/playerActiveTracks/playerActiveTracksSlice';
 import zIndex from '@mui/material/styles/zIndex';
 
 const PlayerContainer = () => {
@@ -31,10 +31,7 @@ const PlayerContainer = () => {
         break;
       case "track_update":
         const playerCurrentTrack = state.track;
-        if (tracks[currentTrack].id !== playerCurrentTrack.id) {
-          const findTrackIndex = tracks.findIndex(track => track.id === playerCurrentTrack.id)
-          dispatch(setCurrentTrack(findTrackIndex));
-        }
+        dispatch(setCurrentTrackId(playerCurrentTrack.id));
         break;
       default:
     }

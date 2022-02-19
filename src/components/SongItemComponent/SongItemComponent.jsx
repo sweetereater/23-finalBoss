@@ -11,8 +11,8 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentTrack, setIsPlaying, setMusicSource } from '../../store/features/playerActiveTracks/playerActiveTracksSlice';
-import { activeTracksSelector, currentMusicSourceSelector, currentTrackSelector, isPlayingSelector } from '../../store/features/playerActiveTracks/activeTracksSelectors';
+import { setCurrentTrack, setIsPlaying, setMusicSource, setCurrentTrackId } from '../../store/features/playerActiveTracks/playerActiveTracksSlice';
+import { activeTracksSelector, currentMusicSourceSelector, currentTrackSelector, isPlayingSelector, currentTrackIdSelector } from '../../store/features/playerActiveTracks/activeTracksSelectors';
 import { setPlayerActiveTracks } from '../../store/features/playerActiveTracks/playerActiveTracksSlice';
 import { currentTracksSelector } from '../../store/features/currentTracks/currentTracksSelector';
 import { savedTracksSelector } from '../../store/features/savedTracks/savedTracksSelectors';
@@ -32,7 +32,7 @@ function SongItemComponent(props) {
 
     const currentTracks = useSelector(currentTracksSelector)
 
-    const activeTrack = useSelector(activeTracksSelector)[currentTrack]
+    const activeTrackId = useSelector(currentTrackIdSelector)
 
     const dispatch = useDispatch();
 
@@ -55,18 +55,18 @@ function SongItemComponent(props) {
             dispatch(setMusicSource(source));
             dispatch(setPlayerActiveTracks(currentTracks))
             dispatch(setCurrentTrack(order));
+            dispatch(setCurrentTrackId(id));
             dispatch(setIsPlaying(true))
+        } else if (id === activeTrackId) {
+          dispatch(setIsPlaying(!isPlaying));
+        } else {
+          dispatch(setPlayerActiveTracks(currentTracks))
+          dispatch(setCurrentTrack(order));
+          dispatch(setCurrentTrackId(id));
+          dispatch(setIsPlaying(true))
         }
 
-        if (currentTrack === order && (source === musicSrc || musicSrc === null)) {
-            dispatch(setIsPlaying(!isPlaying))
-        }
-
-        if (currentTrack !== order && source === musicSrc) {
-            dispatch(setCurrentTrack(order))
-            dispatch(setIsPlaying(true))
-        }
-    }, [currentTrack, currentTracks, dispatch, isPlaying, musicSrc, order, source])
+    }, [currentTrack, currentTracks, dispatch, isPlaying, musicSrc, order, source, id, activeTrackId])
 
     const handleTrackLike = useCallback(() => {
         if (!isSaved) {
@@ -92,14 +92,14 @@ function SongItemComponent(props) {
             alignItems: 'center',
             justifyContent: 'space-between',
             margin: '10px 0',
-            bgcolor: (source === musicSrc && activeTrack.id === id) ? '#a7e0fc' : "#fff"
+            bgcolor: (source === musicSrc && activeTrackId === id) ? '#a7e0fc' : "#fff"
         }}>
             <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1, }}>
                     <img src={img} alt="" />
                     <IconButton aria-label="play/pause" onClick={handleClick} >
                         {
-                            (source === musicSrc && activeTrack.id === id) && isPlaying ?
+                            (source === musicSrc && activeTrackId === id) && isPlaying ?
                                 <PauseIcon sx={iconStyles} /> :
                                 <PlayArrowIcon sx={iconStyles} />
                         }
