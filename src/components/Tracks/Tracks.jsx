@@ -2,8 +2,9 @@ import SongItemComponent from '../SongItemComponent/SongItemComponent'
 import { useDispatch } from 'react-redux';
 import { setCurrentTracks } from '../../store/features/currentTracks/currentTracksSlice';
 import { useEffect } from 'react';
+import { FixedSizeList as List } from 'react-window';
 
-const Tracks = ({ tracks, source }) => {
+const Tracks = ({ tracks, source, width }) => {
 
   const dispatch = useDispatch();
 
@@ -14,10 +15,26 @@ const Tracks = ({ tracks, source }) => {
   return (
     <>
       {
+        tracks.length > 0 &&
+        <List
+          className="List"
+          height={700}
+          itemCount={tracks.length}
+          itemSize={100}
+          width={width}
+        >
+          {({ index, style }) => {
+            const track = tracks[index];
+            return <SongItemComponent style={style} key={track.id} track={track} order={index} source={source} />
+          }}
+        </List>
+      }
+
+      {/* {
         tracks.length > 0 && tracks.map((track, index) => {
           return <SongItemComponent key={track.id} track={track} order={index} source={source} />
         })
-      }
+      } */}
     </>
   )
 }
