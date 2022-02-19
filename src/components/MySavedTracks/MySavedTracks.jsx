@@ -5,7 +5,8 @@ import { savedTracksSelector } from "../../store/features/savedTracks/savedTrack
 import { getSavedTracks } from '../../store/features/savedTracks/savedTracksThunks';
 import { tokenSelector } from '../../store/features/access/accessSelectors';
 import Tracks from '../Tracks/Tracks';
-import { Box } from '@mui/material';
+import { Box, CircularProgress } from '@mui/material';
+import { loaderSelector } from '../../store/features/loader/loaderSelectors';
 
 
 const MySavedTracks = () => {
@@ -17,6 +18,10 @@ const MySavedTracks = () => {
       dispatch(getSavedTracks())
     }
   }, [token])
+
+  const isLoading = useSelector(loaderSelector);
+
+  if (isLoading) return <CircularProgress />
 
   if (!token) return <Redirect to='/login' />
 
