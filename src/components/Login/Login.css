@@ -2,12 +2,12 @@
     transition: .3s;
     text-decoration: none;
     padding: 10px;
-    background-color: #1976D2;
+    background-color: #0083f5;
     color: #ffffff;
     border-radius: 5px;
 }
 .loginButton a:hover {
-    background-color: #aec4db;
-    color: #1976D2;
+    background-color: #dae6fd;
+    color: #0083f5;
     padding: 10px 25px;
 }

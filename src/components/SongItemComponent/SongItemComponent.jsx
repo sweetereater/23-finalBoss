@@ -96,7 +96,7 @@ function SongItemComponent(props) {
             alignItems: 'center',
             justifyContent: 'space-between',
             margin: '10px 0',
-            bgcolor: (source === musicSrc && activeTrackId === id) ? '#a7e0fc' : "#fff"
+            bgcolor: (source === musicSrc && activeTrackId === id) ? '#d0d0d0' : "#f5f5f5"
         }}>
             <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1, }}>
@@ -116,7 +116,7 @@ function SongItemComponent(props) {
                 </CardContent>
             </Box>
             <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                <Box onClick={handleTrackLike} sx={{marginRight: '10px'}}>
+                <Box onClick={handleTrackLike} sx={{marginRight: '10px'}} >
                     {isSaved ?
                         <FavoriteIcon sx={{ ...iconStyles, height: 24, width: 24 }} /> :
                         <FavoriteBorderIcon sx={{ ...iconStyles, height: 24, width: 24 }} />
