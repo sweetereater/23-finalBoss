@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import CloseIcon from '@mui/icons-material/Close';
 
 export const PlayListCard = (props) => {
+
     return (
         <Box sx={{
             padding: '2rem',
@@ -29,8 +30,9 @@ export const PlayListCard = (props) => {
                     </Box>
                 </Box>
             </Link>
-            <Box onClick={()=>{alert('Ща погодь, пока не работает...')}}>
-                <CloseIcon sx={{position: 'absolute',
+            <Box onClick={()=>{alert("Api не предоставляет возможности удалить плейлист)))")}}>
+                <CloseIcon sx={{
+                    position: 'absolute',
                     top: 5,
                     right: 5,
                     fill: 'grey',
