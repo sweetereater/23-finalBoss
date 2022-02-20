@@ -15,7 +15,7 @@ const MySavedTracks = () => {
   const token = useSelector(tokenSelector);
   const tracks = useSelector(savedTracksSelector);
   useEffect(() => {
-    if (tracks.length === 0) {
+    if (token && tracks.length === 0) {
       dispatch(getSavedTracks())
     }
   }, [token, tracks])

@@ -13,6 +13,10 @@ export const playlistsSlice = createSlice({
             state.playlists = action.payload
         },
 
+        addPlaylist: (state, action) => {
+          state.playlists = [action.payload, ...state.playlists]
+        },
+
         addTracksToPlaylist: (state, action) => {
             console.log(action);
             state.playlists = state.playlists.map(pl => pl.id === action.payload.id ? { ...pl, tracks: action.payload.tracks } : pl)
@@ -31,6 +35,6 @@ export const playlistsSlice = createSlice({
     },
 })
 
-export const { setPlaylists, addTracksToPlaylist, addTrack, deleteTrack } = playlistsSlice.actions;
+export const { setPlaylists, addTracksToPlaylist, addTrack, deleteTrack, addPlaylist } = playlistsSlice.actions;
 
 export default playlistsSlice.reducer;

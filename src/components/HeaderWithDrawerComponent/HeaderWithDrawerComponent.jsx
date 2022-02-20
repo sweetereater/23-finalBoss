@@ -19,12 +19,28 @@ import { BrowserRouter } from 'react-router-dom';
 import { NavLink } from 'react-router-dom'
 import './HeaderWithDrawerComponent.css'
 import { userSelector } from '../../store/features/user/userSelectors';
+import { tokenSelector } from '../../store/features/access/accessSelectors';
+import { createPlaylist } from '../../store/features/playlists/playlistsThunks';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 const drawerWidth = 240;
 
 export default function HeaderWithDrawerComponent() {
 
-    const user = useSelector(userSelector)
+    const history = useHistory();
+
+    const user = useSelector(userSelector);
+    const token = useSelector(tokenSelector);
+    const dispatch = useDispatch();
+
+    const handleAddPlaylist = () => {
+      if (token) {
+        dispatch(createPlaylist()).then((data) => history.push(data.payload));
+      } else {
+        history.push('/login');
+      }
+    }
 
     return (
         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -86,16 +102,14 @@ export default function HeaderWithDrawerComponent() {
                         </List>
                     </NavLink>
                     <Divider />
-                    <NavLink to='/new_playlist'>
-                        <List>
-                            <ListItem button key={'New playlist'}>
-                                <ListItemIcon>
-                                    <AddIcon />
-                                </ListItemIcon>
-                                <ListItemText primary={'Create playlist'} />
-                            </ListItem>
-                        </List>
-                    </NavLink>
+                    <List>
+                        <ListItem button key={'New playlist'} onClick={handleAddPlaylist}>
+                            <ListItemIcon>
+                                <AddIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={'Create playlist'} />
+                        </ListItem>
+                    </List>
                 </Box>
             </Drawer>
             <Box component="main" sx={{ flexGrow: 1, p: 2 }}>

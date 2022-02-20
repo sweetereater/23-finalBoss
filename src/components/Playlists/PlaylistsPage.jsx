@@ -16,7 +16,7 @@ export const PlaylistsPage = () => {
 
     useEffect(() => {
         /* Пока добавим условия для того, чтобы убрать лишние запросы к серверу */
-        if (!playlists.length) {
+        if (!playlists.length && token ) {
             dispatch(getPlaylists())
         }
     }, [token])
