@@ -11,11 +11,13 @@ import Tracks from '../Tracks/Tracks';
 import { setPlayListTracks } from '../../store/features/currentPlaylist/currentPlaylistSlice'
 import useDebounce from '../SearchPage/debounce';
 import { spotifyApi } from '../../store/spotifyAPI';
+import { userSelector } from '../../store/features/user/userSelectors';
 
 export const CurrentPlaylist = () => {
 
     const token = useSelector(tokenSelector);
     const isLoading = useSelector(loaderSelector);
+    const user = useSelector(userSelector);
 
     const params = useParams();
     const playlistID = params.playlistId;
@@ -99,7 +101,7 @@ export const CurrentPlaylist = () => {
                     width: '100%',
                 }}>
                     {
-                        currentPL.owner.id === 'spotify' ?
+                        currentPL.owner.id !== user.id ?
                             <Tracks tracks={currentPLTracks} source={playlistID} width={800} action='like' />
                             :
                             <Tracks tracks={currentPLTracks} source={playlistID} width={800} action='remove_from_playlist' />
@@ -107,7 +109,7 @@ export const CurrentPlaylist = () => {
 
                 </Box>
             </Box>
-            {currentPL.owner.id !== 'spotify' &&
+            {currentPL.owner.id === user.id &&
                 <Box>
                     <Input style={{ width: '80%', marginBottom: '2rem', }} placeholder='Search music...' value={searchValue} onChange={handleInput}></Input>
                     <Tracks tracks={searchResult} source={source} width={1300} action='add_to_playlist' playlistID={playlistID} />
