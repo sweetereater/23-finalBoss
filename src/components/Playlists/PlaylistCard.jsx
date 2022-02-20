@@ -1,12 +1,13 @@
 import { Box, Typography } from "@mui/material"
 import { Link } from "react-router-dom"
-
+import CloseIcon from '@mui/icons-material/Close';
 
 export const PlayListCard = (props) => {
     return (
         <Box sx={{
             padding: '2rem',
             borderRadius: '8px',
+            position: 'relative',
             '&:hover': {
                 backgroundColor: '#ededed'
             }
@@ -28,6 +29,15 @@ export const PlayListCard = (props) => {
                     </Box>
                 </Box>
             </Link>
+            <Box onClick={()=>{alert('Ща погодь, пока не работает...')}}>
+                <CloseIcon sx={{position: 'absolute',
+                    top: 5,
+                    right: 5,
+                    fill: 'grey',
+                    '&:hover': {
+                        cursor: 'pointer'
+                    }}}/>
+            </Box>
         </Box>
     )
 }
