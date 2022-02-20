@@ -4,7 +4,7 @@ import { setCurrentTracks } from '../../store/features/currentTracks/currentTrac
 import { useEffect } from 'react';
 import { FixedSizeList as List } from 'react-window';
 
-const Tracks = ({ tracks, source, width }) => {
+const Tracks = ({ tracks, source, width, action, playlistID }) => {
 
   const dispatch = useDispatch();
 
@@ -25,7 +25,15 @@ const Tracks = ({ tracks, source, width }) => {
         >
           {({ index, style }) => {
             const track = tracks[index];
-            return <SongItemComponent style={style} key={track.id} track={track} order={index} source={source} />
+            return <SongItemComponent
+              style={style}
+              key={track.id}
+              track={track}
+              order={index}
+              source={source}
+              action={action}
+              playlistID={playlistID}
+            />
           }}
         </List>
       }
