@@ -20,13 +20,17 @@ export const getPlaylists = createAsyncThunk('playlists/getPlaylists', async (_,
     */
 
     const playListToStore = playLists.map(playList => {
-        const { id, name, description, images, tracks } = playList;
+        const { id, name, description, images, owner } = playList;
         return {
             id,
             name,
             description,
             images,
             tracks: [],
+            owner: {
+                display_name: owner.display_name,
+                id: owner.id,
+            }
         }
     })
     dispatch(setPlaylists(playListToStore));
