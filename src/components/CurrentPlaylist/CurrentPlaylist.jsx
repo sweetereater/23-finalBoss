@@ -28,6 +28,10 @@ export const CurrentPlaylist = () => {
 
     const dispatch = useDispatch()
 
+    const [searchValue, setSearchValue] = useState('');
+    const [searchResult, setSearchResult] = useState([]);
+    const [source, setSource] = useState('')
+
     useEffect(() => {
 
         if (currentPLTracksFromStore.length) {
@@ -36,13 +40,13 @@ export const CurrentPlaylist = () => {
             dispatch(getCurrentPlaylistTracks(playlistID))
         }
 
-        return () => dispatch(setPlayListTracks([]))
+        return () => {
+          dispatch(setPlayListTracks([]));
+          setSearchValue('');
+          setSearchResult([]);
+        }
 
     }, [playlistID])
-
-    const [searchValue, setSearchValue] = useState('');
-    const [searchResult, setSearchResult] = useState([]);
-    const [source, setSource] = useState('')
 
     const handleInput = (e) => {
         setSearchValue(e.target.value)
