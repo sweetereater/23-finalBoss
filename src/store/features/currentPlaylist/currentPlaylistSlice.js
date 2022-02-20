@@ -14,10 +14,17 @@ export const currentPlaylistSlice = createSlice({
         },
         setPlayListTracks: (state, action) => {
             state.tracks = action.payload
+        },
+        addTrackToPlaylist: (state, action) => {
+            state.tracks = [action.payload, ...state.tracks]
+        },
+        removeTrackFromPlaylist: (state, action) => {
+            console.log(action)
+            state.tracks = state.tracks.filter(track => track.id !== action.payload)
         }
     },
 })
 
-export const { setPlaylistINFO, setPlayListTracks } = currentPlaylistSlice.actions;
+export const { setPlaylistINFO, setPlayListTracks, addTrackToPlaylist, removeTrackFromPlaylist } = currentPlaylistSlice.actions;
 
 export default currentPlaylistSlice.reducer;

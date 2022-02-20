@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import AppBar from '@mui/material/AppBar';
@@ -10,18 +11,39 @@ import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import AddIcon from '@mui/icons-material/Add';
 import SearchIcon from '@mui/icons-material/Search';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import { BrowserRouter } from 'react-router-dom';
 import { NavLink } from 'react-router-dom'
 import './HeaderWithDrawerComponent.css'
+import { userSelector } from '../../store/features/user/userSelectors';
+import { tokenSelector } from '../../store/features/access/accessSelectors';
+import { createPlaylist } from '../../store/features/playlists/playlistsThunks';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 const drawerWidth = 240;
 
 export default function HeaderWithDrawerComponent() {
+
+    const history = useHistory();
+
+    const user = useSelector(userSelector);
+    const token = useSelector(tokenSelector);
+    const dispatch = useDispatch();
+
+    const handleAddPlaylist = () => {
+      if (token) {
+        dispatch(createPlaylist()).then((data) => history.push(data.payload));
+      } else {
+        history.push('/login');
+      }
+    }
+
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <CssBaseline />
             <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
                 <Toolbar>
@@ -30,6 +52,11 @@ export default function HeaderWithDrawerComponent() {
                         Best player ever
                     </Typography>
                 </Toolbar>
+                <Box sx={{ position: 'fixed', top: 15, right: 30 }}>
+                    <Typography variant="h6" noWrap component="p">
+                        {user && user.display_name}
+                    </Typography>
+                </Box>
             </AppBar>
             <Drawer
                 className='drawer'
@@ -85,6 +112,15 @@ export default function HeaderWithDrawerComponent() {
                             </ListItem>
                         </List>
                     </NavLink>
+                    <Divider />
+                    <List>
+                        <ListItem button key={'New playlist'} onClick={handleAddPlaylist}>
+                            <ListItemIcon>
+                                <AddIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={'Create playlist'} />
+                        </ListItem>
+                    </List>
                 </Box>
             </Drawer>
             <Box component="main" sx={{ flexGrow: 1, p: 2 }}>

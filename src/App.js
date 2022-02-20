@@ -15,6 +15,8 @@ import { CurrentPlaylist } from './components/CurrentPlaylist/CurrentPlaylist';
 import HeaderWithDrawerComponent from "./components/HeaderWithDrawerComponent/HeaderWithDrawerComponent";
 import { SearchPage } from './components/SearchPage';
 import { MainPage } from './components/MainPage/MainPage';
+import { NewPlaylist } from './components/NewPlaylist/NewPlaylist';
+import { userSelector } from './store/features/user/userSelectors';
 
 function App() {
 
@@ -57,6 +59,9 @@ function App() {
             </Route>
             <Route path='/playlists'>
               <PlaylistsPage />
+            </Route>
+            <Route path='/new_playlist'>
+              <NewPlaylist />
             </Route>
           </Switch>
         </div>
