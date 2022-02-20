@@ -7,6 +7,7 @@ import playerActiveTracksSlice from "./features/playerActiveTracks/playerActiveT
 import playlistsSlice from "./features/playlists/playlistsSlice";
 import currentPlaylistSlice from "./features/currentPlaylist/currentPlaylistSlice";
 import currentTracksSlice from "./features/currentTracks/currentTracksSlice";
+import mainPageSlice from "./features/mainPage/mainPageSlice";
 
 export const store = configureStore({
     reducer: {
@@ -18,5 +19,6 @@ export const store = configureStore({
         playlists: playlistsSlice,
         currentPlaylist: currentPlaylistSlice,
         currentTracks: currentTracksSlice,
+        mainPage: mainPageSlice,
     }
 })

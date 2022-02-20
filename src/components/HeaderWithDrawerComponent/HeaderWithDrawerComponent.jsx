@@ -69,6 +69,17 @@ export default function HeaderWithDrawerComponent() {
             >
                 <Toolbar />
                 <Box sx={{ overflow: 'auto' }}>
+                    <NavLink to='/main'>
+                        <List>
+                            <ListItem button key={'Main'}>
+                                <ListItemIcon>
+                                    <SearchIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={'Main'} />
+                            </ListItem>
+                        </List>
+                    </NavLink>
+                    <Divider />  
                     <NavLink to='/search'>
                         <List>
                             <ListItem button key={'Search'}>
