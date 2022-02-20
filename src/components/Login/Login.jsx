@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { tokenSelector } from "../../store/features/access/accessSelectors";
+import './Login.css'
 
 const redirectUri = 'http://localhost:3000/accesstoken';
 
@@ -22,8 +23,8 @@ export const Login = () => {
   }
 
   return (
-    <center>
-      <a href={authorizeURL}>Login</a>
-    </center>
+    <div className='loginButton'>
+        <a href={authorizeURL}>Login</a>
+    </div>
   )
 }
