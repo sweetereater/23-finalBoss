@@ -14,6 +14,7 @@ import { PlaylistsPage } from './components/Playlists/PlaylistsPage';
 import { CurrentPlaylist } from './components/CurrentPlaylist/CurrentPlaylist';
 import HeaderWithDrawerComponent from "./components/HeaderWithDrawerComponent/HeaderWithDrawerComponent";
 import { SearchPage } from './components/SearchPage';
+import { MainPage } from './components/MainPage/MainPage';
 
 function App() {
 
@@ -42,13 +43,16 @@ function App() {
             <Route path="/accesstoken">
               <ExtractToken />
             </Route>
+            <Route path='/main'>
+              <MainPage />
+            </Route>
             <Route path='/search'>
               <SearchPage />
             </Route>
             <Route path='/music'>
               <MySavedTracks />
             </Route>
-            <Route path='/playlists/:playlistId'>
+            <Route exact path='/playlists/:playlistId'>
               <CurrentPlaylist />
             </Route>
             <Route path='/playlists'>

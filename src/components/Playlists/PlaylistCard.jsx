@@ -21,7 +21,7 @@ export const PlayListCard = (props) => {
                     >
                         {props.name}
                     </Typography>
-                    <img width='320px' height='320px' src={props.images[0].url} alt="Обложка плейлиста" />
+                    <img width='320px' height='320px' src={props.images[0]?.url} alt="Обложка плейлиста" />
                 </Box>
             </Link>
         </Box>
