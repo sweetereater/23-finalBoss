@@ -30,6 +30,7 @@ export const MainPage = () => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', marginLeft: '280px' }}>
+      <h3>Top user tracks</h3>
       <Tracks tracks={tracks} source="/main" width={1600} />
     </Box>)
 }
