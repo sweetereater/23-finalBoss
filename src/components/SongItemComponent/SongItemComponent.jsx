@@ -20,7 +20,6 @@ import { currentTracksSelector } from '../../store/features/currentTracks/curren
 import { savedTracksSelector } from '../../store/features/savedTracks/savedTracksSelectors';
 import { addTrackToSaved, removeTrackFromSaved } from '../../store/features/savedTracks/savedTracksThunks';
 import { getSongDuration } from '../../utils/timeFunctions';
-import { spotifyApi } from '../../store/spotifyAPI';
 import { addTrackToPlaylistThunk, removeTrackFromPlaylistThunk } from '../../store/features/currentPlaylist/currentPlaylistThunks';
 import { currentPlaylistTracksSelector } from '../../store/features/currentPlaylist/currentPlaylistSelectors';
 
@@ -145,7 +144,7 @@ function SongItemComponent(props) {
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 margin: '10px 0',
-                bgcolor: (source === musicSrc && activeTrackId === id) ? '#a7e0fc' : "#fff",
+                bgcolor: (source === musicSrc && activeTrackId === id) ? '#d0d0d0' : '#f5f5f5',
             }}>
                 <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1, }}>
@@ -170,7 +169,7 @@ function SongItemComponent(props) {
 
                 </Box>
                 <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                    <Box onClick={handleTrackLike}>
+                    <Box onClick={handleTrackLike} sx={{ marginRight: '10px' }}>
                         {isSaved ?
                             <FavoriteIcon sx={{ ...iconStyles, height: 24, width: 24 }} /> :
                             <FavoriteBorderIcon sx={{ ...iconStyles, height: 24, width: 24 }} />
