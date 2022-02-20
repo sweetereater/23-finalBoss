@@ -9,6 +9,8 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentTrack, setIsPlaying, setMusicSource, setCurrentTrackId } from '../../store/features/playerActiveTracks/playerActiveTracksSlice';
@@ -19,11 +21,13 @@ import { savedTracksSelector } from '../../store/features/savedTracks/savedTrack
 import { addTrackToSaved, removeTrackFromSaved } from '../../store/features/savedTracks/savedTracksThunks';
 import { getSongDuration } from '../../utils/timeFunctions';
 import { spotifyApi } from '../../store/spotifyAPI';
+import { addTrackToPlaylistThunk, removeTrackFromPlaylistThunk } from '../../store/features/currentPlaylist/currentPlaylistThunks';
+import { currentPlaylistTracksSelector } from '../../store/features/currentPlaylist/currentPlaylistSelectors';
 
 function SongItemComponent(props) {
     // const [isSaved, setIsSaved] = useState(null);
 
-    const { track, order, source, style } = props;
+    const { track, order, source, style, action, playlistID } = props;
 
     const { artists } = track;
 
@@ -48,6 +52,10 @@ function SongItemComponent(props) {
 
     const savedTracks = useSelector(savedTracksSelector)
     const isSaved = savedTracks.find(tracks => tracks.id === id)
+
+    const currentPLTracks = useSelector(currentPlaylistTracksSelector)
+    const isInPlaylist = currentPLTracks.find(track => track.id === id);
+
 
     // useEffect(() => {
     //     spotifyApi.containsMySavedTracks([id]).then((res) => setIsSaved(res.body[0]))
@@ -100,6 +108,26 @@ function SongItemComponent(props) {
         }
     }, [track, id, isSaved]);
 
+    /* для удаления нужен массив объектов с свойством uri */
+    const handleRemoveTrackFromPL = useCallback(() => {
+
+        dispatch(removeTrackFromPlaylistThunk({
+            playlistID: source,
+            trackID: id,
+            tracks: [{ uri: track.uri }]
+        }))
+
+    }, [track, id])
+
+    /* для добавления просто массив строк uri */
+    const handleAddTrackToPL = useCallback(() => {
+        dispatch(addTrackToPlaylistThunk({
+            playlistID: playlistID,
+            tracks: [track.uri],
+            track
+        }))
+    }, [track, id])
+
     const TinyText = styled(Typography)({
         fontSize: '0.75rem',
         opacity: 0.38,
@@ -130,6 +158,7 @@ function SongItemComponent(props) {
                             }
                         </IconButton>
                     </Box>
+
                     <CardContent sx={{ display: 'flex', flexDirection: 'column', flex: '1 0 auto', alignItems: 'flex-start', }}>
                         <Typography component="div" variant="subtitle1">
                             {name}
@@ -138,6 +167,7 @@ function SongItemComponent(props) {
                             {artistsOfTrack}
                         </Typography>}
                     </CardContent>
+
                 </Box>
                 <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                     <Box onClick={handleTrackLike}>
@@ -146,6 +176,20 @@ function SongItemComponent(props) {
                             <FavoriteBorderIcon sx={{ ...iconStyles, height: 24, width: 24 }} />
                         }
                     </Box>
+                    {
+                        action === 'remove_from_playlist' ?
+                            (<Box onClick={handleRemoveTrackFromPL}>
+                                <DeleteIcon sx={{ ...iconStyles, height: 24, width: 24 }} />
+                            </Box>) : null
+                    }
+                    {
+                        action === 'add_to_playlist' ?
+                            (<Box onClick={handleAddTrackToPL}>
+                                {
+                                    !isInPlaylist && <AddIcon sx={{ ...iconStyles, height: 24, width: 24 }} />
+                                }
+                            </Box>) : null
+                    }
                     <TinyText>{duration}</TinyText>
                 </Box>
 
@@ -153,4 +197,5 @@ function SongItemComponent(props) {
         </div >
     );
 }
+
 export default SongItemComponent
