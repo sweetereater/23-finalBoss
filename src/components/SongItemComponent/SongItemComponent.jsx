@@ -116,7 +116,7 @@ function SongItemComponent(props) {
                 </CardContent>
             </Box>
             <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                <Box onClick={handleTrackLike}>
+                <Box onClick={handleTrackLike} sx={{marginRight: '10px'}}>
                     {isSaved ?
                         <FavoriteIcon sx={{ ...iconStyles, height: 24, width: 24 }} /> :
                         <FavoriteBorderIcon sx={{ ...iconStyles, height: 24, width: 24 }} />
