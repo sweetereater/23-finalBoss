@@ -14,7 +14,7 @@ export const MainPage = () => {
   const tracks = useSelector(userTopTracksSelector);
   
   useEffect(() => {
-    if (tracks.length === 0) {
+    if (token && tracks.length === 0) {
       dispatch(getUserTopTracks())
     }
   }, [token, tracks])
