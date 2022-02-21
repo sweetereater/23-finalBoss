@@ -17,6 +17,7 @@ import { SearchPage } from './components/SearchPage';
 import { MainPage } from './components/MainPage/MainPage';
 import { NewPlaylist } from './components/NewPlaylist/NewPlaylist';
 import { userSelector } from './store/features/user/userSelectors';
+import { setAccessToken } from './store/features/access/accessSlice';
 
 function App() {
 
@@ -31,6 +32,8 @@ function App() {
         dispatch(getUserInfo(accessToken))
       }
     }
+    const timerId = setTimeout(() => { console.log('token dispatch'); dispatch(setAccessToken(null))}, 3300000);
+    return () => clearTimeout(timerId);
   }, [])
 
   return (

@@ -12,9 +12,11 @@ import { setPlayListTracks } from '../../store/features/currentPlaylist/currentP
 import useDebounce from '../SearchPage/debounce';
 import { spotifyApi } from '../../store/spotifyAPI';
 import { userSelector } from '../../store/features/user/userSelectors';
+import { useHistory } from 'react-router-dom';
 
 export const CurrentPlaylist = () => {
 
+    const history = useHistory();
     const token = useSelector(tokenSelector);
     const isLoading = useSelector(loaderSelector);
     const user = useSelector(userSelector);
@@ -34,10 +36,12 @@ export const CurrentPlaylist = () => {
 
     useEffect(() => {
 
-        if (currentPLTracksFromStore.length) {
+        if (currentPLTracksFromStore?.length) {
             dispatch(setPlayListTracks(currentPLTracksFromStore))
-        } else {
+        } else if (token) {
             dispatch(getCurrentPlaylistTracks(playlistID))
+        } else {
+          history.push('/login');
         }
 
         return () => {
@@ -46,7 +50,7 @@ export const CurrentPlaylist = () => {
           setSearchResult([]);
         }
 
-    }, [playlistID])
+    }, [playlistID, token])
 
     const handleInput = (e) => {
         setSearchValue(e.target.value)
