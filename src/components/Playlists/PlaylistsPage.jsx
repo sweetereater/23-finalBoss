@@ -18,11 +18,7 @@ export const PlaylistsPage = () => {
         setPopupState(!popupState)
     }
     const answerPopup = (answer) => {
-        if(answer === false){
-            setPopupState(!popupState)
-        } else {
-
-        }
+        !answer && setPopupState(!popupState)
     }
 
     const token = useSelector(tokenSelector)
@@ -35,8 +31,6 @@ export const PlaylistsPage = () => {
     }, [token])
 
     if (!token) return <Redirect to='/login' />
-
-
 
     return (
         <Box sx={{ marginLeft: '240px', display: 'flex', justifyContent: 'center', flexWrap: 'wrap', paddingBottom: '100px' }}>

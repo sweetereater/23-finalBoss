@@ -38,7 +38,7 @@ export const getPlaylists = createAsyncThunk('playlists/getPlaylists', async (_,
 
 export const createPlaylist = createAsyncThunk('playlists/createPlaylist', async (_, { dispatch }) => {
   
-  const response = await spotifyApi.createPlaylist('New playlist');
+  const response = await spotifyApi.createPlaylist(`Playlist #${Math.floor(Math.random() * 1234)}`);
   console.log(response.body)
   const { id, name, description, images, owner } = response.body;
   const playlist = { id, name, description, images, tracks:[], owner };
