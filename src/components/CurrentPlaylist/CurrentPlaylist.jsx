@@ -98,9 +98,9 @@ export const CurrentPlaylist = () => {
                         component="div"
                         dangerouslySetInnerHTML={{ __html: currentPL.description }}
                     />
-                    <Box sx={{ width: '640px', height: '640px' }}>
+                    <Box sx={{ width: '640px', maxHeight: '640px' }}>
                         {
-                            (currentPL.images.length > 0) && <img width='600px' height='600px' src={currentPL.images[0].url} />
+                            (currentPL.images.length > 0) && <img alt='album' width='600px' height='600px' src={currentPL.images[0].url} />
                         }
                     </Box>
 
@@ -119,7 +119,7 @@ export const CurrentPlaylist = () => {
             </Box>
             {currentPL.owner.id === user.id &&
                 <Box>
-                    <Input style={{ width: '80%', marginBottom: '2rem', }} placeholder='Search music...' value={searchValue} onChange={handleInput}></Input>
+                    <Input style={{ width: '80%', marginBottom: '2rem', }} placeholder='Search music...' value={searchValue} onChange={handleInput} />
                     <Tracks tracks={searchResult} source={source} width={1300} action='add_to_playlist' playlistID={playlistID} />
                 </Box>
             }
