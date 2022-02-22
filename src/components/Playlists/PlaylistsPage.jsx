@@ -9,6 +9,7 @@ import { PlayListCard } from "./PlaylistCard";
 import { PopupComponent } from "./PopupComponent/PopupComponent";
 
 export const PlaylistsPage = () => {
+
   const dispatch = useDispatch();
   const playlists = useSelector(playlistsSelector);
   console.log(playlists);
@@ -20,7 +21,6 @@ export const PlaylistsPage = () => {
   const answerPopup = (answer) => {
     if (answer === false) {
       setPopupState(!popupState);
-    } else {
     }
   };
 
