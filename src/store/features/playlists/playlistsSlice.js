@@ -45,6 +45,13 @@ export const playlistsSlice = createSlice({
         playlistIndex
       ].tracks.filter((track) => track.id !== action.payload.trackID);
     },
+    changePlaylist: (state, action) => {
+      const playlistIndex = state.playlists.findIndex(
+        (pl) => pl.id === action.payload.playlistId
+      );
+      state.playlists[playlistIndex].name = action.payload.name;
+      state.playlists[playlistIndex].description = action.payload.description;
+    },
   },
 });
 
@@ -54,6 +61,7 @@ export const {
   addTrack,
   deleteTrack,
   addPlaylist,
+  changePlaylist,
 } = playlistsSlice.actions;
 
 export default playlistsSlice.reducer;

@@ -16,6 +16,7 @@ import useDebounce from "../SearchPage/debounce";
 import { spotifyApi } from "../../store/spotifyAPI";
 import { userSelector } from "../../store/features/user/userSelectors";
 import { useHistory } from "react-router-dom";
+import { EditPopup } from "./EditPopup/EditPopup";
 
 export const CurrentPlaylist = () => {
   const history = useHistory();
@@ -39,6 +40,16 @@ export const CurrentPlaylist = () => {
   const [searchValue, setSearchValue] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [source, setSource] = useState("");
+  const [popupState, setPopupState] = useState(false);
+
+  const popupActivation = () => {
+    setPopupState(!popupState);
+  };
+  const answerPopup = (answer) => {
+    if (answer === false) {
+      setPopupState(!popupState);
+    }
+  };
 
   useEffect(() => {
     if (currentPLTracksFromStore?.length) {
@@ -106,6 +117,9 @@ export const CurrentPlaylist = () => {
               <img width="600px" height="600px" src={currentPL.images[0].url} />
             )}
           </Box>
+          {currentPL.owner.id === user.id && (
+            <Box onClick={popupActivation}>Edit</Box>
+          )}
         </Box>
         <Box
           sx={{
@@ -145,6 +159,13 @@ export const CurrentPlaylist = () => {
             playlistID={playlistID}
           />
         </Box>
+      )}
+      {popupState && (
+        <EditPopup
+          currentPlaylist={currentPL}
+          playlistId={playlistID}
+          answerPopup={answerPopup}
+        />
       )}
     </Box>
   );
