@@ -1,6 +1,6 @@
 .PopupArea {
     position: fixed;
-    top: 40%;
+    top: 20%;
     background-color: #ffffff;
     padding: 20px;
     border: 1px solid #b3b3b3;
@@ -8,4 +8,7 @@
 }
 .PopupArea button {
     margin: 10px;
+}
+.popupImage {
+    max-width: 150px;
 }
