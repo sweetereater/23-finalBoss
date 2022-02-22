@@ -1,15 +1,23 @@
-import SpotifyPlayer from 'react-spotify-web-playback';
-import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import Box from '@mui/material/Box';
+import SpotifyPlayer from "react-spotify-web-playback";
+import { useSelector, useDispatch } from "react-redux";
+import { Redirect } from "react-router-dom";
+import Box from "@mui/material/Box";
 
-import { tokenSelector } from '../../store/features/access/accessSelectors';
-import { activeTracksSelector, currentTrackSelector, isPlayingSelector, currentTrackIdSelector } from '../../store/features/playerActiveTracks/activeTracksSelectors';
-import { setCurrentTrack, setIsPlaying, setCurrentTrackId } from '../../store/features/playerActiveTracks/playerActiveTracksSlice';
-import zIndex from '@mui/material/styles/zIndex';
+import { tokenSelector } from "../../store/features/access/accessSelectors";
+import {
+  activeTracksSelector,
+  currentTrackSelector,
+  isPlayingSelector,
+  currentTrackIdSelector,
+} from "../../store/features/playerActiveTracks/activeTracksSelectors";
+import {
+  setCurrentTrack,
+  setIsPlaying,
+  setCurrentTrackId,
+} from "../../store/features/playerActiveTracks/playerActiveTracksSlice";
+import zIndex from "@mui/material/styles/zIndex";
 
 const PlayerContainer = () => {
-
   const dispatch = useDispatch();
   const token = useSelector(tokenSelector);
   const currentTrack = useSelector(currentTrackSelector);
@@ -35,7 +43,7 @@ const PlayerContainer = () => {
         break;
       default:
     }
-  }
+  };
 
   /*
     Из объекта трека берем:
@@ -45,13 +53,13 @@ const PlayerContainer = () => {
       album.images[] 0 -> 600x600, 1-> 300x300, 2-> 64x64
   */
 
-  console.log('PlayerContainer tracks', tracks);
+  console.log("PlayerContainer tracks", tracks);
   const uris = tracks.map((track) => track.uri);
 
-  if (!token) return <Redirect to='/login' />
+  if (!token) return <Redirect to="/login" />;
 
-  console.log('!!! PLAYER SETTINGS !!!')
-  console.log(`Is playing -> ${isPlaying}, currentTrack -> ${currentTrack}`)
+  console.log("!!! PLAYER SETTINGS !!!");
+  console.log(`Is playing -> ${isPlaying}, currentTrack -> ${currentTrack}`);
 
   /*
     Для того, чтобы стилизовать слайдер, можно обратиться к ._SliderRSWP
@@ -60,28 +68,29 @@ const PlayerContainer = () => {
 
   return (
     <div>
-      {uris.length > 0 &&
-        <Box sx={{ position: 'fixed', bottom: 0, width: '100%', zIndex: 1300 }}>
+      {uris.length > 0 && (
+        <Box sx={{ position: "fixed", bottom: 0, width: "100%", zIndex: 1300 }}>
           <SpotifyPlayer
             token={token}
             uris={uris}
             play={isPlaying}
             offset={currentTrack}
             initialVolume={0.4}
-            callback={state => handlePlayerStateChange(state)}
+            callback={(state) => handlePlayerStateChange(state)}
             styles={{
-              height: '72px',
-              sliderHeight: '15px',
-              sliderHandleColor: 'pointer',
-              color: '#0083f5',
-              bgColor: '#ededed',
-              sliderColor: '#329dfa',
-              sliderTrackColor: '#b0b5b2',
+              height: "72px",
+              sliderHeight: "15px",
+              sliderHandleColor: "pointer",
+              color: "#0083f5",
+              bgColor: "#ededed",
+              sliderColor: "#329dfa",
+              sliderTrackColor: "#b0b5b2",
             }}
           />
-        </Box>}
+        </Box>
+      )}
     </div>
-  )
-}
+  );
+};
 
 export default PlayerContainer;

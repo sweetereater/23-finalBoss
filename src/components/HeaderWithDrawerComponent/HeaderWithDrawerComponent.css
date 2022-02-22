@@ -1,14 +1,14 @@
 .MuiBox-root a {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
 .Header_Icon {
-    margin-right: 5px;
+  margin-right: 5px;
 }
 .drawer {
-    transition: .5s;
-    opacity: 0.5;
+  transition: 0.5s;
+  opacity: 0.5;
 }
 .drawer:hover {
-    opacity: 1;
+  opacity: 1;
 }

@@ -1,1 +1,0 @@
-export const currentTracksSelector = (state) => state.currentTracks.currentTracks;

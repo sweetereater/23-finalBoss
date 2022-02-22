@@ -1,2 +1,2 @@
 import Tracks from "./Tracks";
-export { Tracks }
+export { Tracks };
