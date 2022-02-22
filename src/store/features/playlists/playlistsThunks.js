@@ -1,8 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { spotifyApi } from '../../spotifyAPI';
-import { setPlaylists, addPlaylist } from './playlistsSlice';
+import { spotifyApi } from "../../spotifyAPI";
+import { setPlaylists, addPlaylist } from "./playlistsSlice";
 
-export const getPlaylists = createAsyncThunk('playlists/getPlaylists', async (_, { dispatch }) => {
+export const getPlaylists = createAsyncThunk(
+  "playlists/getPlaylists",
+  async (_, { dispatch }) => {
     const response = await spotifyApi.getUserPlaylists();
     const playLists = response.body.items;
     console.log(playLists);
@@ -19,30 +21,33 @@ export const getPlaylists = createAsyncThunk('playlists/getPlaylists', async (_,
             // playListObject.tracks = tracksResponse.body.items;
     */
 
-    const playListToStore = playLists.map(playList => {
-        const { id, name, description, images, owner } = playList;
-        return {
-            id,
-            name,
-            description,
-            images,
-            tracks: [],
-            owner: {
-                display_name: owner.display_name,
-                id: owner.id,
-            }
-        }
-    })
+    const playListToStore = playLists.map((playList) => {
+      const { id, name, description, images, owner } = playList;
+      return {
+        id,
+        name,
+        description,
+        images,
+        tracks: [],
+        owner: {
+          display_name: owner.display_name,
+          id: owner.id,
+        },
+      };
+    });
     dispatch(setPlaylists(playListToStore));
-})
+  }
+);
 
-export const createPlaylist = createAsyncThunk('playlists/createPlaylist', async (_, { dispatch }) => {
-  
-  const response = await spotifyApi.createPlaylist('New playlist');
-  console.log(response.body)
-  const { id, name, description, images, owner } = response.body;
-  const playlist = { id, name, description, images, tracks:[], owner };
-  dispatch(addPlaylist(playlist));
-  const redirect = `/playlists/${id}`
-  return redirect;
-})
+export const createPlaylist = createAsyncThunk(
+  "playlists/createPlaylist",
+  async (_, { dispatch }) => {
+    const response = await spotifyApi.createPlaylist("New playlist");
+    console.log(response.body);
+    const { id, name, description, images, owner } = response.body;
+    const playlist = { id, name, description, images, tracks: [], owner };
+    dispatch(addPlaylist(playlist));
+    const redirect = `/playlists/${id}`;
+    return redirect;
+  }
+);
