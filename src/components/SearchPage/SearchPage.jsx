@@ -36,7 +36,7 @@ const SearchPage = () => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', marginLeft: '280px' }}>
-      <Input style={{ width: '80%', marginBottom: '2rem', }} placeholder='Search music...' value={searchValue} onChange={handleInput}></Input>
+      <Input style={{ width: '80%', marginBottom: '2rem'}} placeholder='Search music...' value={searchValue} onChange={handleInput}></Input>
       <Tracks tracks={searchResult} source={source} width={1600} />
     </Box>
   )

@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { useEffect } from "react"
+import {useEffect} from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Redirect } from 'react-router-dom';
 import { tokenSelector } from "../../store/features/access/accessSelectors";

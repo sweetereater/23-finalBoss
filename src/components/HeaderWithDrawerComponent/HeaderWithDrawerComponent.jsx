@@ -23,6 +23,7 @@ import { tokenSelector } from '../../store/features/access/accessSelectors';
 import { createPlaylist } from '../../store/features/playlists/playlistsThunks';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import HomeIcon from '@mui/icons-material/Home';
 
 const drawerWidth = 240;
 
@@ -73,7 +74,7 @@ export default function HeaderWithDrawerComponent() {
                         <List>
                             <ListItem button key={'Main'}>
                                 <ListItemIcon>
-                                    <SearchIcon />
+                                    <HomeIcon />
                                 </ListItemIcon>
                                 <ListItemText primary={'Main'} />
                             </ListItem>

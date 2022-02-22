@@ -1,0 +1,11 @@
+.PopupArea {
+    position: fixed;
+    top: 40%;
+    background-color: #ffffff;
+    padding: 20px;
+    border: 1px solid #b3b3b3;
+    border-radius: 5px;
+}
+.PopupArea button {
+    margin: 10px;
+}

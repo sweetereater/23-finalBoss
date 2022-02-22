@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { setCurrentTracks } from '../../store/features/currentTracks/currentTracksSlice';
 import { useEffect } from 'react';
 import { FixedSizeList as List } from 'react-window';
+import './Tracks.css'
 
 const Tracks = ({ tracks, source, width, action, playlistID }) => {
 
