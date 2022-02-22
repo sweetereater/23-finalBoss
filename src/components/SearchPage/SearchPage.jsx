@@ -19,7 +19,7 @@ const SearchPage = () => {
   useEffect(() => {
     if (!token) return;
     if (debouncedSearch) {
-      spotifyApi.searchTracks(debouncedSearch).then((res) => {
+      spotifyApi.searchTracks(debouncedSearch, { limit: 50 }).then((res) => {
         console.log(res.body);
         setSearchResult(res.body.tracks.items);
         setSource(res.body.tracks.href);

@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
+import picture from '../../assets/new_playlist.jpg';
 
 export const PlayListCard = (props) => {
   return (
@@ -31,14 +32,21 @@ export const PlayListCard = (props) => {
             {props.name}
           </Typography>
           <Box sx={{ width: "320px", height: "320px" }}>
-            {props.images[0]?.url && (
+            {props.images[0]?.url ? (
               <img
                 width="100%"
                 height="100%"
                 src={props.images[0].url}
                 alt="Обложка плейлиста"
               />
-            )}
+            ) :
+              <img
+                width="100%"
+                height="100%"
+                src={picture}
+                alt="Обложка плейлиста"
+              />
+            }
           </Box>
         </Box>
       </Link>
