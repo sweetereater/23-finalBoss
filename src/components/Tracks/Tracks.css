@@ -1,3 +1,8 @@
 .List {
     margin: 0 auto;
 }
+.title {
+    color: #c6c6c6;
+    text-align: start;
+    padding: 10px 20px;
+}
