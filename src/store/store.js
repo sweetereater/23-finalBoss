@@ -6,7 +6,6 @@ import savedTracksSlice from "./features/savedTracks/savedTracksSlice";
 import playerActiveTracksSlice from "./features/playerActiveTracks/playerActiveTracksSlice";
 import playlistsSlice from "./features/playlists/playlistsSlice";
 import currentPlaylistSlice from "./features/currentPlaylist/currentPlaylistSlice";
-import currentTracksSlice from "./features/currentTracks/currentTracksSlice";
 import mainPageSlice from "./features/mainPage/mainPageSlice";
 
 export const store = configureStore({
@@ -18,7 +17,6 @@ export const store = configureStore({
         playerActiveTracks: playerActiveTracksSlice,
         playlists: playlistsSlice,
         currentPlaylist: currentPlaylistSlice,
-        currentTracks: currentTracksSlice,
         mainPage: mainPageSlice,
     }
 })

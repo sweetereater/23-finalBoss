@@ -14,9 +14,8 @@ import AddIcon from '@mui/icons-material/Add';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentTrack, setIsPlaying, setMusicSource, setCurrentTrackId } from '../../store/features/playerActiveTracks/playerActiveTracksSlice';
-import { activeTracksSelector, currentMusicSourceSelector, currentTrackSelector, isPlayingSelector, currentTrackIdSelector } from '../../store/features/playerActiveTracks/activeTracksSelectors';
+import { currentMusicSourceSelector, currentTrackSelector, isPlayingSelector, currentTrackIdSelector } from '../../store/features/playerActiveTracks/activeTracksSelectors';
 import { setPlayerActiveTracks } from '../../store/features/playerActiveTracks/playerActiveTracksSlice';
-import { currentTracksSelector } from '../../store/features/currentTracks/currentTracksSelector';
 import { savedTracksSelector } from '../../store/features/savedTracks/savedTracksSelectors';
 import { addTrackToSaved, removeTrackFromSaved } from '../../store/features/savedTracks/savedTracksThunks';
 import { getSongDuration } from '../../utils/timeFunctions';
@@ -26,7 +25,7 @@ import { currentPlaylistTracksSelector } from '../../store/features/currentPlayl
 function SongItemComponent(props) {
     // const [isSaved, setIsSaved] = useState(null);
 
-    const { track, order, source, style, action, playlistID } = props;
+    const { track, order, source, style, action, playlistID, tracks } = props;
 
     const { artists } = track;
 
@@ -39,11 +38,8 @@ function SongItemComponent(props) {
     const duration = getSongDuration(track.duration_ms);
     const img = track.album.images[2].url;
 
-    const currentTrack = useSelector(currentTrackSelector);
     const isPlaying = useSelector(isPlayingSelector);
     const musicSrc = useSelector(currentMusicSourceSelector)
-
-    const currentTracks = useSelector(currentTracksSelector)
 
     const activeTrackId = useSelector(currentTrackIdSelector)
 
@@ -67,27 +63,29 @@ function SongItemComponent(props) {
         width: 38,
         cursor: 'pointer',
     }
+   
     const handleClick = useCallback(() => {
         /* TODO -> написать логику, учесть варианты:
             1) Нажимаем на песню, которая не воспроизводится в данный момент - поменять offset
             2) Нажимаем на песню, которая воспроизводится в данный момент - меняем isPlaying на !isPlaying
         */
+        
         if (source !== musicSrc) {
             dispatch(setMusicSource(source));
-            dispatch(setPlayerActiveTracks(currentTracks))
+            dispatch(setPlayerActiveTracks(tracks))
             dispatch(setCurrentTrack(order));
             dispatch(setCurrentTrackId(id));
             dispatch(setIsPlaying(true))
         } else if (id === activeTrackId) {
             dispatch(setIsPlaying(!isPlaying));
         } else {
-            dispatch(setPlayerActiveTracks(currentTracks))
+            dispatch(setPlayerActiveTracks(tracks))
             dispatch(setCurrentTrack(order));
             dispatch(setCurrentTrackId(id));
             dispatch(setIsPlaying(true))
         }
 
-    }, [currentTrack, currentTracks, dispatch, isPlaying, musicSrc, order, source, id, activeTrackId])
+    }, [dispatch, isPlaying, musicSrc, order, source, id, activeTrackId, tracks])
 
     /* without Redux  */
     // const handleTrackLike = useCallback(() => {
