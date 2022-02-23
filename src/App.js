@@ -31,11 +31,17 @@ function App() {
         dispatch(getUserInfo(accessToken));
       }
     }
-    const timerId = setTimeout(() => {
-      console.log("token dispatch");
-      dispatch(setAccessToken(null));
-    }, 3300000);
-    return () => clearTimeout(timerId);
+    const addingTime = localStorage.getItem("addingTime");
+    if (addingTime) {
+      const timeDiff = Date.now() - addingTime;
+      const delay = 3300000 - timeDiff;
+      console.log(timeDiff);
+      const timerId = setTimeout(() => {
+        console.log("token dispatch");
+        dispatch(setAccessToken(null));
+      }, delay);
+      return () => clearTimeout(timerId);
+    }
   }, []);
 
   return (

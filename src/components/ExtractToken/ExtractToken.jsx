@@ -22,6 +22,7 @@ export const ExtractToken = () => {
   if (accessToken) {
     dispatch(setAccessToken(accessToken));
     localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("addingTime", Date.now());
     spotifyApi.setAccessToken(accessToken);
     history.replace("/main");
   } else {
