@@ -18,6 +18,7 @@ import { userSelector } from "../../store/features/user/userSelectors";
 import { useHistory } from "react-router-dom";
 import { EditPopup } from "./EditPopup/EditPopup";
 import EditIcon from '@mui/icons-material/Edit';
+import picture from '../../../src/assets/new_playlist.jpg';
 
 export const CurrentPlaylist = () => {
   const history = useHistory();
@@ -77,7 +78,7 @@ export const CurrentPlaylist = () => {
   useEffect(() => {
     if (!token) return;
     if (debouncedSearch) {
-      spotifyApi.searchTracks(debouncedSearch).then((res) => {
+      spotifyApi.searchTracks(debouncedSearch, { limit: 50 }).then((res) => {
         console.log(res.body);
         setSearchResult(res.body.tracks.items);
         setSource(res.body.tracks.href);
@@ -117,9 +118,11 @@ export const CurrentPlaylist = () => {
             dangerouslySetInnerHTML={{ __html: currentPL.description }}
           />
           <Box sx={{ width: "640px", height: "640px" }}>
-            {currentPL.images.length > 0 && (
+            {currentPL.images.length > 0 ? (
               <img width="600px" height="600px" src={currentPL.images[0].url} />
-            )}
+            ) :
+              <img width="600px" height="600px" src={picture} />
+            }
           </Box>
         </Box>
         <Box
