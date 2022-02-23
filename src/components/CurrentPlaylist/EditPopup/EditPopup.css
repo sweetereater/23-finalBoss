@@ -1,7 +1,6 @@
 .PopupArea {
   position: fixed;
-  width: 400px;
-  height: 300px;
+  width: 300px;
   top: 20%;
   left: 700px;
   background-color: #ffffff;
@@ -10,8 +9,19 @@
   border-radius: 5px;
 }
 .PopupArea button {
-  margin: 10px;
+  margin: 15px 5px;
 }
 .popupImage {
   max-width: 150px;
+}
+.PopupArea span {
+  color: grey;
+}
+.PopupArea input {
+  width: 200px;
+  margin-top: 5px;
+}
+.PopupArea textarea {
+  width: 200px;
+  margin-top: 5px;
 }

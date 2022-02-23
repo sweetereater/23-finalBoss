@@ -1,9 +1,10 @@
 import "./EditPopup.css";
 import Button from "@mui/material/Button";
-import { Input, FormGroup } from "@mui/material";
+import {Input, FormGroup, Typography} from "@mui/material";
 import { useState, useEffect } from "react";
 import { changePlaylistThunk } from "../../../store/features/playlists/playlistsThunks";
 import { useDispatch } from "react-redux";
+import EditIcon from "@mui/icons-material/Edit";
 
 export const EditPopup = (props) => {
   const { currentPlaylist, answerPopup, playlistId } = props;
@@ -27,18 +28,26 @@ export const EditPopup = (props) => {
   };
 
   const handleOkClick = () => {
-    if (name) {
+    if (name && description.length < 160) {
       dispatch(changePlaylistThunk({ playlistId, name, description })).then(
         () => answerPopup(false)
       );
-    } else alert("Не должно быть пустым");
+    } else alert("Поле name не должно быть пустым, введите имя плейлиста");
   };
 
   return (
     <div className="PopupArea">
-      <h4>Edit playlist</h4>
-      <Input value={name} onChange={handleName}></Input>
-      <Input multiline value={description} onChange={handleDescription}></Input>
+        <Typography variant="h5" component="span">
+            Edit playlist
+        </Typography>
+      <div>
+          <div>
+              <Input value={name} onChange={handleName} placeholder={'name'}/>
+          </div>
+          <div>
+              <Input multiline value={description} onChange={handleDescription} maxlength="15" placeholder={'description'}/>
+          </div>
+      </div>
       <Button variant="outlined" onClick={handleOkClick}>
         Ok
       </Button>

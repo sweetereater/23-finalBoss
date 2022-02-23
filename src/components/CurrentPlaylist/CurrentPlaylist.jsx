@@ -17,6 +17,7 @@ import { spotifyApi } from "../../store/spotifyAPI";
 import { userSelector } from "../../store/features/user/userSelectors";
 import { useHistory } from "react-router-dom";
 import { EditPopup } from "./EditPopup/EditPopup";
+import EditIcon from '@mui/icons-material/Edit';
 
 export const CurrentPlaylist = () => {
   const history = useHistory();
@@ -106,6 +107,9 @@ export const CurrentPlaylist = () => {
         <Box sx={{ marginRight: "100px" }}>
           <Typography variant="h4" component="div">
             {currentPL.name}
+            {currentPL.owner.id === user.id && (
+                <EditIcon onClick={popupActivation} sx={{marginLeft: '15px'}}/>
+            )}
           </Typography>
           <Typography
             variant="h6"
@@ -117,9 +121,6 @@ export const CurrentPlaylist = () => {
               <img width="600px" height="600px" src={currentPL.images[0].url} />
             )}
           </Box>
-          {currentPL.owner.id === user.id && (
-            <Box onClick={popupActivation}>Edit</Box>
-          )}
         </Box>
         <Box
           sx={{

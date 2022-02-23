@@ -57,10 +57,11 @@ export const changePlaylistThunk = createAsyncThunk(
   "playlists/changePlaylistName",
   async ({ playlistId, name, description }, { dispatch }) => {
     console.log(playlistId, name);
-    const response = await spotifyApi.changePlaylistDetails(playlistId, {
-      name,
-      description,
-    });
+      const options = description ? { name, description } : { name };
+      const response = await spotifyApi.changePlaylistDetails(
+          playlistId,
+          options
+      );
     dispatch(changePlaylist({ playlistId, name, description }));
   }
 );
