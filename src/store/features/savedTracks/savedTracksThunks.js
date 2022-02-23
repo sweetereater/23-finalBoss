@@ -14,7 +14,6 @@ export const getSavedTracks = createAsyncThunk(
       dispatch(setLoading(true));
       const response = await spotifyApi.getMySavedTracks({ limit });
       const amountOfTracks = response.body.total;
-      console.log("total tracks: ", amountOfTracks);
 
       savedTracks = [
         ...savedTracks,
@@ -29,19 +28,19 @@ export const getSavedTracks = createAsyncThunk(
           );
         }
         const responses = await Promise.all(requests);
-        console.log("Responses: ", responses);
+
         responses.forEach(
           (response) =>
-            (savedTracks = [
-              ...savedTracks,
-              ...response.body.items.map((item) => item.track),
-            ])
+          (savedTracks = [
+            ...savedTracks,
+            ...response.body.items.map((item) => item.track),
+          ])
         );
       }
 
-      console.log("got from server: ", savedTracks.length);
       dispatch(setLoading(false));
       dispatch(setSavedTracks(savedTracks));
+
     } catch (error) {
       console.log(error);
     }

@@ -20,9 +20,6 @@ export const getCurrentPlaylistTracks = createAsyncThunk(
 
     const savedTracks = getState().savedTracks.savedTracks;
     if (savedTracks.length === 0) {
-      console.log(
-        "Тянем избранное для того, чтобы показать, есть ли треки из плейлиста у нас"
-      );
       dispatch(getSavedTracks());
     }
 

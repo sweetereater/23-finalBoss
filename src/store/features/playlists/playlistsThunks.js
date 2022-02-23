@@ -8,7 +8,6 @@ export const getPlaylists = createAsyncThunk(
   async (_, { dispatch }) => {
     const response = await spotifyApi.getUserPlaylists();
     const playLists = response.body.items;
-    console.log(playLists);
     /*
         Из плейлиста нам нужно
         id: string, 
@@ -44,7 +43,6 @@ export const createPlaylist = createAsyncThunk(
   "playlists/createPlaylist",
   async (_, { dispatch }) => {
     const response = await spotifyApi.createPlaylist("New playlist");
-    console.log(response.body);
     const { id, name, description, images, owner } = response.body;
     const playlist = { id, name, description, images, tracks: [], owner };
     dispatch(addPlaylist(playlist));
@@ -56,12 +54,11 @@ export const createPlaylist = createAsyncThunk(
 export const changePlaylistThunk = createAsyncThunk(
   "playlists/changePlaylistName",
   async ({ playlistId, name, description }, { dispatch }) => {
-    console.log(playlistId, name);
-      const options = description ? { name, description } : { name };
-      const response = await spotifyApi.changePlaylistDetails(
-          playlistId,
-          options
-      );
+    const options = description ? { name, description } : { name };
+    const response = await spotifyApi.changePlaylistDetails(
+      playlistId,
+      options
+    );
     dispatch(changePlaylist({ playlistId, name, description }));
   }
 );

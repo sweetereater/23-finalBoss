@@ -11,9 +11,6 @@ export const getUserTopTracks = createAsyncThunk(
 
     const savedTracks = getState().savedTracks.savedTracks;
     if (savedTracks.length === 0) {
-      console.log(
-        "Тянем избранное для того, чтобы показать, есть ли треки у нас в добавленном"
-      );
       dispatch(getSavedTracks());
     }
     const response = await spotifyApi.getMyTopTracks();
