@@ -7,9 +7,9 @@ import { useHistory } from "react-router-dom";
 
 export const ExtractToken = () => {
   const history = useHistory();
-  console.log("ExtractToken Render");
   const token = useSelector(tokenSelector);
   const dispatch = useDispatch();
+
   if (token) {
     history.replace("/main");
   }
@@ -17,7 +17,6 @@ export const ExtractToken = () => {
   const accessToken = new URLSearchParams(window.location.hash).get(
     "#access_token"
   );
-  console.log(accessToken);
 
   if (accessToken) {
     dispatch(setAccessToken(accessToken));

@@ -79,7 +79,6 @@ export const CurrentPlaylist = () => {
     if (!token) return;
     if (debouncedSearch) {
       spotifyApi.searchTracks(debouncedSearch, { limit: 50 }).then((res) => {
-        console.log(res.body);
         setSearchResult(res.body.tracks.items);
         setSource(res.body.tracks.href);
       });
@@ -109,7 +108,7 @@ export const CurrentPlaylist = () => {
           <Typography variant="h4" component="div">
             {currentPL.name}
             {currentPL.owner.id === user.id && (
-                <EditIcon onClick={popupActivation} sx={{marginLeft: '15px'}}/>
+              <EditIcon onClick={popupActivation} sx={{ marginLeft: '15px' }} />
             )}
           </Typography>
           <Typography

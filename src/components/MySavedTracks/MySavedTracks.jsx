@@ -53,7 +53,7 @@ const MySavedTracks = () => {
   if (isLoading) return <CircularProgress />;
 
   if (!token) return <Redirect to="/login" />;
-  console.log(tracks);
+
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", marginLeft: "280px" }}>
