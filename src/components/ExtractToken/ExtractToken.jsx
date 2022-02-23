@@ -3,14 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { setAccessToken } from "../../store/features/access/accessSlice";
 import { tokenSelector } from "../../store/features/access/accessSelectors";
 import { spotifyApi } from "../../store/spotifyAPI";
+import { useHistory } from "react-router-dom";
 
 export const ExtractToken = () => {
+  const history = useHistory();
   console.log("ExtractToken Render");
   const token = useSelector(tokenSelector);
   const dispatch = useDispatch();
-
   if (token) {
-    return <Redirect to="/music" />;
+    history.replace("/main");
   }
 
   const accessToken = new URLSearchParams(window.location.hash).get(
@@ -22,7 +23,7 @@ export const ExtractToken = () => {
     dispatch(setAccessToken(accessToken));
     localStorage.setItem("accessToken", accessToken);
     spotifyApi.setAccessToken(accessToken);
-    return <Redirect to="/music" />;
+    history.replace("/main");
   } else {
     return <Redirect to="/login" />;
   }
