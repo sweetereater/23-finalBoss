@@ -16,6 +16,9 @@ import useDebounce from "../SearchPage/debounce";
 import { spotifyApi } from "../../store/spotifyAPI";
 import { userSelector } from "../../store/features/user/userSelectors";
 import { useHistory } from "react-router-dom";
+import { EditPopup } from "./EditPopup/EditPopup";
+import EditIcon from '@mui/icons-material/Edit';
+import picture from '../../../src/assets/new_playlist.jpg';
 
 export const CurrentPlaylist = () => {
   const history = useHistory();
@@ -39,6 +42,16 @@ export const CurrentPlaylist = () => {
   const [searchValue, setSearchValue] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [source, setSource] = useState("");
+  const [popupState, setPopupState] = useState(false);
+
+  const popupActivation = () => {
+    setPopupState(!popupState);
+  };
+  const answerPopup = (answer) => {
+    if (answer === false) {
+      setPopupState(!popupState);
+    }
+  };
 
   useEffect(() => {
     if (currentPLTracksFromStore?.length) {
@@ -65,7 +78,7 @@ export const CurrentPlaylist = () => {
   useEffect(() => {
     if (!token) return;
     if (debouncedSearch) {
-      spotifyApi.searchTracks(debouncedSearch).then((res) => {
+      spotifyApi.searchTracks(debouncedSearch, { limit: 50 }).then((res) => {
         console.log(res.body);
         setSearchResult(res.body.tracks.items);
         setSource(res.body.tracks.href);
@@ -95,6 +108,9 @@ export const CurrentPlaylist = () => {
         <Box sx={{ marginRight: "100px" }}>
           <Typography variant="h4" component="div">
             {currentPL.name}
+            {currentPL.owner.id === user.id && (
+                <EditIcon onClick={popupActivation} sx={{marginLeft: '15px'}}/>
+            )}
           </Typography>
           <Typography
             variant="h6"
@@ -102,9 +118,11 @@ export const CurrentPlaylist = () => {
             dangerouslySetInnerHTML={{ __html: currentPL.description }}
           />
           <Box sx={{ width: "640px", height: "640px" }}>
-            {currentPL.images.length > 0 && (
+            {currentPL.images.length > 0 ? (
               <img width="600px" height="600px" src={currentPL.images[0].url} />
-            )}
+            ) :
+              <img width="600px" height="600px" src={picture} />
+            }
           </Box>
         </Box>
         <Box
@@ -145,6 +163,13 @@ export const CurrentPlaylist = () => {
             playlistID={playlistID}
           />
         </Box>
+      )}
+      {popupState && (
+        <EditPopup
+          currentPlaylist={currentPL}
+          playlistId={playlistID}
+          answerPopup={answerPopup}
+        />
       )}
     </Box>
   );
