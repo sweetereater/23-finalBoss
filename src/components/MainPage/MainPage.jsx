@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { getUserTopTracks } from "../../store/features/mainPage/mainPageThunk";
 import { userTopTracksSelector } from "../../store/features/mainPage/mainPageSelector";
@@ -24,7 +24,6 @@ export const MainPage = () => {
   if (isLoading) return <CircularProgress />;
 
   if (!token) return <Redirect to="/login" />;
-  console.log(tracks);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", marginLeft: "280px" }}>

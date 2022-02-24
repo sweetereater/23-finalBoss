@@ -15,8 +15,6 @@ import { CurrentPlaylist } from "./components/CurrentPlaylist/CurrentPlaylist";
 import HeaderWithDrawerComponent from "./components/HeaderWithDrawerComponent/HeaderWithDrawerComponent";
 import { SearchPage } from "./components/SearchPage";
 import { MainPage } from "./components/MainPage/MainPage";
-import { NewPlaylist } from "./components/NewPlaylist/NewPlaylist";
-import { userSelector } from "./store/features/user/userSelectors";
 import { setAccessToken } from "./store/features/access/accessSlice";
 
 function App() {
@@ -35,11 +33,11 @@ function App() {
     if (addingTime) {
       const timeDiff = Date.now() - addingTime;
       const delay = 3300000 - timeDiff;
-      console.log(timeDiff);
+
       const timerId = setTimeout(() => {
-        console.log("token dispatch");
         dispatch(setAccessToken(null));
       }, delay);
+
       return () => clearTimeout(timerId);
     }
   }, []);
@@ -70,9 +68,6 @@ function App() {
             </Route>
             <Route path="/playlists">
               <PlaylistsPage />
-            </Route>
-            <Route path="/new_playlist">
-              <NewPlaylist />
             </Route>
           </Switch>
         </div>

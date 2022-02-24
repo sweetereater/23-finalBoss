@@ -12,7 +12,6 @@ export const PlaylistsPage = () => {
 
   const dispatch = useDispatch();
   const playlists = useSelector(playlistsSelector);
-  console.log(playlists);
 
   const [popupState, setPopupState] = useState(false);
   const popupActivation = () => {

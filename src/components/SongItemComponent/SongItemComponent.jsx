@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -23,7 +23,6 @@ import {
 } from "../../store/features/playerActiveTracks/playerActiveTracksSlice";
 import {
   currentMusicSourceSelector,
-  currentTrackSelector,
   isPlayingSelector,
   currentTrackIdSelector,
 } from "../../store/features/playerActiveTracks/activeTracksSelectors";
@@ -69,10 +68,6 @@ function SongItemComponent(props) {
   const currentPLTracks = useSelector(currentPlaylistTracksSelector);
   const isInPlaylist = currentPLTracks.find((track) => track.id === id);
 
-  // useEffect(() => {
-  //     spotifyApi.containsMySavedTracks([id]).then((res) => setIsSaved(res.body[0]))
-  // }, [id])
-
   const iconColor = "#0083f5";
   const iconStyles = {
     fill: iconColor,
@@ -82,10 +77,6 @@ function SongItemComponent(props) {
   };
 
   const handleClick = useCallback(() => {
-    /* TODO -> написать логику, учесть варианты:
-            1) Нажимаем на песню, которая не воспроизводится в данный момент - поменять offset
-            2) Нажимаем на песню, которая воспроизводится в данный момент - меняем isPlaying на !isPlaying
-        */
 
     if (source !== musicSrc) {
       dispatch(setMusicSource(source));
@@ -103,16 +94,8 @@ function SongItemComponent(props) {
     }
   }, [dispatch, isPlaying, musicSrc, order, source, id, activeTrackId, tracks]);
 
-  /* without Redux  */
-  // const handleTrackLike = useCallback(() => {
-  //     if (!isSaved) {
-  //         dispatch(addTrackToSaved(track)).then(() => setIsSaved(true))
-  //     } else {
-  //         dispatch(removeTrackFromSaved(id)).then(() => setIsSaved(false))
-  //     }
-  // }, [track, id, isSaved]);
 
-  /* with Redux */
+
   const handleTrackLike = useCallback(() => {
     if (!isSaved) {
       dispatch(addTrackToSaved(track));

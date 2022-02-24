@@ -8,14 +8,11 @@ import {
   activeTracksSelector,
   currentTrackSelector,
   isPlayingSelector,
-  currentTrackIdSelector,
 } from "../../store/features/playerActiveTracks/activeTracksSelectors";
 import {
-  setCurrentTrack,
   setIsPlaying,
   setCurrentTrackId,
 } from "../../store/features/playerActiveTracks/playerActiveTracksSlice";
-import zIndex from "@mui/material/styles/zIndex";
 
 const PlayerContainer = () => {
   const dispatch = useDispatch();
@@ -53,18 +50,9 @@ const PlayerContainer = () => {
       album.images[] 0 -> 600x600, 1-> 300x300, 2-> 64x64
   */
 
-  console.log("PlayerContainer tracks", tracks);
   const uris = tracks.map((track) => track.uri);
 
   if (!token) return <Redirect to="/login" />;
-
-  console.log("!!! PLAYER SETTINGS !!!");
-  console.log(`Is playing -> ${isPlaying}, currentTrack -> ${currentTrack}`);
-
-  /*
-    Для того, чтобы стилизовать слайдер, можно обратиться к ._SliderRSWP
-    Например, чтобы установить cursor: pointer
-  */
 
   return (
     <div>

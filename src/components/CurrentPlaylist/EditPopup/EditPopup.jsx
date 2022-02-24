@@ -1,10 +1,9 @@
 import "./EditPopup.css";
 import Button from "@mui/material/Button";
-import {Input, FormGroup, Typography} from "@mui/material";
+import { Input, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 import { changePlaylistThunk } from "../../../store/features/playlists/playlistsThunks";
 import { useDispatch } from "react-redux";
-import EditIcon from "@mui/icons-material/Edit";
 
 export const EditPopup = (props) => {
   const { currentPlaylist, answerPopup, playlistId } = props;
@@ -37,16 +36,16 @@ export const EditPopup = (props) => {
 
   return (
     <div className="PopupArea">
-        <Typography variant="h5" component="span">
-            Edit playlist
-        </Typography>
+      <Typography variant="h5" component="span">
+        Edit playlist
+      </Typography>
       <div>
-          <div>
-              <Input value={name} onChange={handleName} placeholder={'name'}/>
-          </div>
-          <div>
-              <Input multiline value={description} onChange={handleDescription} maxlength="15" placeholder={'description'}/>
-          </div>
+        <div>
+          <Input value={name} onChange={handleName} placeholder={'name'} />
+        </div>
+        <div>
+          <Input multiline value={description} onChange={handleDescription} maxlength="15" placeholder={'description'} />
+        </div>
       </div>
       <Button variant="outlined" onClick={handleOkClick}>
         Ok

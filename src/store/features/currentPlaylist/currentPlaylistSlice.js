@@ -19,7 +19,6 @@ export const currentPlaylistSlice = createSlice({
       state.tracks = [action.payload, ...state.tracks];
     },
     removeTrackFromPlaylist: (state, action) => {
-      console.log(action);
       state.tracks = state.tracks.filter(
         (track) => track.id !== action.payload
       );
