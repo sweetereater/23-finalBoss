@@ -66,18 +66,3 @@ export const changePlaylistThunk = createAsyncThunk(
     dispatch(changePlaylist({ playlistId, name, description }));
   }
 );
-
-export const addTrackThunk = createAsyncThunk(
-  "playlists/addTrack",
-  async ({ playlistID, tracks, track }, { dispatch }) => {
-    const response = await spotifyApi.addTracksToPlaylist(playlistID, tracks);
-    if (response.statusCode === 201) {
-      dispatch(
-        addTrack({
-          id: playlistID,
-          track,
-        })
-      );
-    }
-  }
-);
