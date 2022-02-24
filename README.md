@@ -5,15 +5,16 @@
     [Игорь Иванов](https://github.com/sweetereater)  
     [Кирилл Чирков](https://github.com/21Kaen)  
     
-## Запуск 
-    1. git clone git@github.com:sweetereater/23-finalBoss.git
-    2. npm install
-    
-    3. В корне приложения создайте файл .env.local. 
-        Там укажите id вашего приложения из [Spotify for developers](https://developer.spotify.com/dashboard/applications)
-            Пример: REACT_APP_CLIENT_ID=3#####d#####4#####e#####7#####fa
+## Запуск
+1. git clone git@github.com:sweetereater/23-finalBoss.git
+2. npm install
+3. В корне приложения создайте файл .env.local.  
 
-    4. npm start 
+    Там укажите id вашего приложения из [Spotify for developers](https://developer.spotify.com/dashboard/applications)  
+    
+    Пример: REACT\_APP\_CLIENT\_ID=3#####d#####4#####e#####7#####fa
+
+4. npm start 
 
 ### Возможности приложения:
 
