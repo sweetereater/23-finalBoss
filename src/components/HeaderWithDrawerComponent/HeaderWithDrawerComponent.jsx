@@ -55,7 +55,7 @@ export default function HeaderWithDrawerComponent() {
             src="https://img.icons8.com/dusk/50/000000/spotify.png"
           />
           <Typography variant="h6" noWrap component="div">
-            Best player ever
+            Spotify Killer &#128526;
           </Typography>
         </Toolbar>
         <Box sx={{ position: "fixed", top: 15, right: 30 }}>
