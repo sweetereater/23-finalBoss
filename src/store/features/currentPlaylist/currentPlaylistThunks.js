@@ -52,7 +52,13 @@ export const removeTrackFromPlaylistThunk = createAsyncThunk(
 
 export const addTrackToPlaylistThunk = createAsyncThunk(
   "currentPlayList/addTrackToPlaylist",
-  async ({ playlistID, tracks, track }, { dispatch }) => {
+  async ({ playlistID, tracks, track }, { getState, dispatch }) => {
+    const playlistTracks = getState().playlists.playlists.find(
+      (playlist) => playlist.id === playlistID
+    ).tracks;
+    if (playlistTracks.length === 0) {
+      await dispatch(getCurrentPlaylistTracks(playlistID));
+    }
     const response = await spotifyApi.addTracksToPlaylist(playlistID, tracks);
     if (response.statusCode === 201) {
       dispatch(addTrackToPlaylist(track));
