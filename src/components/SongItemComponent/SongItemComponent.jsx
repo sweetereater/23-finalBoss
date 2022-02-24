@@ -11,6 +11,8 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
+import { List } from "@mui/icons-material";
+import { AddSongToPlaylistComponent } from "./AddSongToPlaylistComponent/AddSongToPlaylistComponent";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -38,6 +40,10 @@ import {
 import { currentPlaylistTracksSelector } from "../../store/features/currentPlaylist/currentPlaylistSelectors";
 
 function SongItemComponent(props) {
+<<<<<<< HEAD
+=======
+  const [popup, setPopup] = useState(false);
+>>>>>>> master
 
   const { track, order, source, style, action, playlistID, tracks } = props;
 
@@ -111,6 +117,10 @@ function SongItemComponent(props) {
       })
     );
   }, [track, id]);
+
+  const popupClose = () => {
+    setPopup(!popup);
+  };
 
   /* для добавления просто массив строк uri */
   const handleAddTrackToPL = useCallback(() => {
@@ -201,9 +211,16 @@ function SongItemComponent(props) {
               )}
             </Box>
           ) : null}
+          <List
+            sx={{ ...iconStyles, height: 28, width: 28 }}
+            onClick={() => setPopup(!popup)}
+          />
           <TinyText>{duration}</TinyText>
         </Box>
       </Card>
+      {popup && (
+        <AddSongToPlaylistComponent track={track} popupClose={popupClose} />
+      )}
     </div>
   );
 }

@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { spotifyApi } from "../../spotifyAPI";
 import { setPlaylists, addPlaylist } from "./playlistsSlice";
 import { changePlaylist } from "./playlistsSlice";
+import { addTrack } from "./playlistsSlice";
 
 export const getPlaylists = createAsyncThunk(
   "playlists/getPlaylists",
@@ -54,6 +55,10 @@ export const createPlaylist = createAsyncThunk(
 export const changePlaylistThunk = createAsyncThunk(
   "playlists/changePlaylistName",
   async ({ playlistId, name, description }, { dispatch }) => {
+<<<<<<< HEAD
+=======
+    console.log(playlistId, name);
+>>>>>>> master
     const options = description ? { name, description } : { name };
     const response = await spotifyApi.changePlaylistDetails(
       playlistId,
