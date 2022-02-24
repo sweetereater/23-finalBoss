@@ -55,10 +55,6 @@ export const createPlaylist = createAsyncThunk(
 export const changePlaylistThunk = createAsyncThunk(
   "playlists/changePlaylistName",
   async ({ playlistId, name, description }, { dispatch }) => {
-<<<<<<< HEAD
-=======
-    console.log(playlistId, name);
->>>>>>> master
     const options = description ? { name, description } : { name };
     const response = await spotifyApi.changePlaylistDetails(
       playlistId,

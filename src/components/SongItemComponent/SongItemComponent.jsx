@@ -40,10 +40,7 @@ import {
 import { currentPlaylistTracksSelector } from "../../store/features/currentPlaylist/currentPlaylistSelectors";
 
 function SongItemComponent(props) {
-<<<<<<< HEAD
-=======
   const [popup, setPopup] = useState(false);
->>>>>>> master
 
   const { track, order, source, style, action, playlistID, tracks } = props;
 
