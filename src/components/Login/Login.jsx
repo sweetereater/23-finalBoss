@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import { tokenSelector } from "../../store/features/access/accessSelectors";
 import "./Login.css";
 
-const redirectUri = "http://localhost:3000/accesstoken";
+const redirectUri = "https://spotify-killer.vercel.app/accesstoken/";
 
 const scopes = [
   "streaming",

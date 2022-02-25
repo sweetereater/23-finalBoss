@@ -12,6 +12,7 @@ export const ExtractToken = () => {
 
   if (token) {
     history.replace("/main");
+    return <Redirect to="/main" />;
   }
 
   const accessToken = new URLSearchParams(window.location.hash).get(
@@ -24,6 +25,7 @@ export const ExtractToken = () => {
     localStorage.setItem("addingTime", Date.now());
     spotifyApi.setAccessToken(accessToken);
     history.replace("/main");
+    return <Redirect to="/main" />;
   } else {
     return <Redirect to="/login" />;
   }
